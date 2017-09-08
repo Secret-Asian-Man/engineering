@@ -1,0 +1,243 @@
+// return element
+function $id(elid)
+{
+  return document.getElementById(elid);
+}
+
+function getValueForElementByName(elementName)
+{
+    if ($("[name='"+elementName+"']").attr('type') == 'radio')
+    {
+        return $("[name='"+elementName+"']:radio:checked").val();
+    }
+
+    return $("[name='"+elementName+"']").val();
+}
+
+
+// Toggle display state
+function toggle(id)
+{
+  var el = $id(id);
+  setDisplay("lightbox", "none");
+  if (el.style.display == "none") {
+    if (el.className == "popover") {
+      setDisplay("lightbox", "block");
+    }
+    setDisplay(id, "block");
+  }else{
+    setDisplay(id, "none");
+  }
+}
+
+function showHide(showId, hideId)
+{
+    setDisplay(showId, "block");
+    setDisplay(hideId, "none");
+}
+
+
+// Pass it an id and what you want the display of that Id to be set to.
+function setDisplay(id, param, object)
+{
+  if(object)
+  {
+    // Send in actual item rather than the id for the item
+    object.style.display = param;
+  }else{
+    if(typeof id == "object")
+    {
+      // Set a batch of items
+      setDisplayAdv(id);
+    }else{
+      // alert(id)
+      // Just set one item
+      try{
+        document.getElementById(id).style.display = param;
+      }catch(e)
+      {
+//        alert("Error:"+id);
+      }
+
+    }
+  }
+
+  return;
+}
+
+
+function setDisplayAdv(object)
+{
+  // Pass in an object formatted like this: [["id", "property":], ["id", "property":], ["id", "property":]];
+  for(i=0; i < object.length; i++)
+  {
+    document.getElementById(object[i][0]).style.display = object[i][1];
+  }
+
+  return true;
+}
+
+$.fn.serializeObject = function()
+{
+    var o = {};
+    var a = this.serializeArray();
+    $.each(a, function() {
+        if (o[this.name] !== undefined) {
+            if (!o[this.name].push) {
+                o[this.name] = [o[this.name]];
+            }
+            o[this.name].push(this.value || '');
+        } else {
+            o[this.name] = this.value || '';
+        }
+    });
+
+    return o;
+};
+
+$.extend({
+    stringify  : function stringify(obj) {
+
+        if ("JSON" in window) {
+            return JSON.stringify(obj);
+        }
+
+        var t = typeof (obj);
+        if (t != "object" || obj === null) {
+            // simple data type
+            if (t == "string") obj = '"' + obj + '"';
+
+            return String(obj);
+        } else {
+            // recurse array or object
+            var n, v, json = [], arr = (obj && obj.constructor == Array);
+
+            for (n in obj) {
+                v = obj[n];
+                t = typeof(v);
+                if (obj.hasOwnProperty(n)) {
+                    if (t == "string") {
+                        v = '"' + v + '"';
+                    } else if (t == "object" && v !== null){
+                        v = jQuery.stringify(v);
+                    }
+
+                    json.push((arr ? "" : '"' + n + '":') + String(v));
+                }
+            }
+
+            return (arr ? "[" : "{") + String(json) + (arr ? "]" : "}");
+        }
+    }
+});
+
+function nl2br (str, is_xhtml) {
+    // Converts newlines to HTML line breaks
+    //
+    // version: 1109.2015
+    // discuss at: http://phpjs.org/functions/nl2br
+    // +   original by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
+    // +   improved by: Philip Peterson
+    // +   improved by: Onno Marsman
+    // +   improved by: Atli Þór
+    // +   bugfixed by: Onno Marsman
+    // +      input by: Brett Zamir (http://brett-zamir.me)
+    // +   bugfixed by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
+    // +   improved by: Brett Zamir (http://brett-zamir.me)
+    // +   improved by: Maximusya
+    // *     example 1: nl2br('Kevin\nvan\nZonneveld');
+    // *     returns 1: 'Kevin\nvan\nZonneveld'
+    // *     example 2: nl2br("\nOne\nTwo\n\nThree\n", false);
+    // *     returns 2: '<br>\nOne<br>\nTwo<br>\n<br>\nThree<br>\n'
+    // *     example 3: nl2br("\nOne\nTwo\n\nThree\n", true);
+    // *     returns 3: '\nOne\nTwo\n\nThree\n'
+    var breakTag = (is_xhtml || typeof is_xhtml === 'undefined') ? '' : '<br>';
+
+    return (str + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + breakTag + '$2');
+}
+
+String.prototype.trim = function() {
+  return this.replace(/^\s+|\s+$/g, "");
+};
+
+function checkboxUpdate(chk, hiddenFieldId)
+{
+  var hidField = $id(hiddenFieldId);
+
+  if(chk.checked)
+  {
+    hidField.value='checked';
+  }else{
+    hidField.value='unchecked';
+  }
+}
+
+
+function is_numeric(input)
+{
+    return (input - 0) == input && input.length > 0;
+}
+
+
+function disableRightClick()
+{
+    $('body').attr('oncontextmenu', 'return false;');
+}
+
+function disableSelection()
+{
+    // Cross browser
+    var target = document.body;
+    if (typeof target.onselectstart!="undefined"){ //For IE
+       target.onselectstart=function(){return false}
+    }else if (typeof target.style.MozUserSelect!="undefined"){ //For Firefox
+        target.style.MozUserSelect="none"
+    }
+     else{ //All other route (For Opera)
+        target.onmousedown=function(){return false}
+        target.style.cursor = "default"
+    }
+}
+
+function filterSearchResult(searchId, valueToSearch)
+{
+    if (typeof DocumentLibrary !== 'undefined') {
+        DocumentLibrary.doSearch(searchId, valueToSearch);
+    }
+    else {
+        $("#"+searchId+" li").each(function(index,element){
+            if ($(element).html().toLowerCase().indexOf(valueToSearch.toLowerCase()) > 0 || !valueToSearch) {
+                $(element).show();
+            }else{
+                $(element).hide();
+            }
+        });
+    }
+}
+
+function validateURL(value) {
+    return /^(https?|ftp):\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(\#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i.test(value);
+}
+
+function goToURL(url) {
+  location.href=url;
+}
+
+
+function downloadURLAsPDF(url, urlOfSite)
+{
+    if (!validateURL(urlOfSite)) {
+        alert("Please fill in a full URL (ex: http://formswift.com)");
+        return;
+    };
+    var queryVars = "downloadURL=" + encodeURIComponent(urlOfSite);
+
+    downloadFileInFrame(url, queryVars);
+}
+
+
+function downloadFileInFrame(url, queryVars)
+{
+    var urlWithVars = url +  "?" + queryVars;
+    $("#downloadFile").attr('src', urlWithVars)
+}

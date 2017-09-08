@@ -1,0 +1,497 @@
+// SessionManager lives partially in webpack and partially in here (and two other flow.js
+// variations). This makes it so that if SessionManager was loaded via webpack, it doesn't get
+// overwritten here. Once SessionManager lives solely in webpack modules, this can be removed
+if (typeof SessionManager === 'undefined') {
+    var SessionManager = {};
+}
+
+SessionManager.hash = "";
+SessionManager.id = "";
+
+SessionManager.init = function(sesId, sesHash)
+{
+    SessionManager.id = sesId;
+    SessionManager.hash = sesHash;
+};
+
+SessionManager.content;
+
+SessionManager.updateTheme = function(theme)
+{
+    var completeAction = function(){
+        SessionManager.previewDisplay(true);
+    };
+    SessionManager.saveAttributeForResume("theme", theme, completeAction);
+
+}
+
+SessionManager.saveAttributeForResume = function(aKey, aValue, action)
+{
+    var sectionData = {"num": 999, "title": "attributes"};
+    var sectionContent = {};
+    sectionContent[aKey] = aValue;
+
+    var sessionData = {"id": SessionManager.id, "hash": SessionManager.hash};
+    var sendData = {"sectionData": sectionData, "sectionContent": sectionContent, "sessionData": sessionData};
+
+    $.ajax({
+        type: "POST",
+        url: "_api/saveAttributeForResume.php",
+        data: sendData
+    }).done(function( msg ) {
+        //    alert( "Data Saved: " + msg );
+        if (action) {
+            action();
+        };
+    });
+};
+
+
+SessionManager.saveContentInSection = function(secNum, secTitle, nextStepEnabled, successAction)
+{
+    var sectionData = {"num": secNum, "title": secTitle};
+    var sectionContent = $("#screen form").serializeObject();
+    var sessionData = {"id": SessionManager.id, "hash": SessionManager.hash};
+
+    var sendData = {"sectionData": sectionData, "sectionContent": sectionContent, "sessionData": sessionData};
+    var sendDataString = $.stringify(sendData);
+
+    $("#saveBar").css("width","80%");
+
+    $.ajax({
+        type: "POST",
+        url: "_api/saveContentInSection.php",
+        data: sendData
+    }).done(function( msg ) {
+        //    alert(msg);
+        SessionManager.complete(msg);
+
+        if (successAction) {
+            successAction();
+        };
+
+        if (nextStepEnabled) {
+            var moreSteps = Wizard.interface.nextStep();
+            if (!moreSteps) {
+                SessionManager.proceedToAccountCreation();
+            };
+        };
+
+        //    alert( "Data Saved: " + msg );
+    });
+}
+
+
+SessionManager.confirm = function(txt, url)
+{
+    SessionManager.confirm.url = url;
+    $id("confirmBoxText").innerHTML = txt;
+
+    $('#confirmationBox').modal('show');
+}
+
+SessionManager.confirm.yes = function()
+{
+    document.location = SessionManager.confirm.url;
+    $('#confirmationBox').modal('hide');
+}
+
+SessionManager.confirm.no = function()
+{
+    $('#confirmationBox').modal('hide');
+}
+
+SessionManager.saveAndContinue = function()
+{
+    $(".saveButton").button('loading');
+    $("#saveBarObj").fadeIn("fast");
+    $("#saveBar").css("width","30%");
+    SessionManager.saveContentInSection(Wizard.loader.onScreen, $("#screen h2").text(), true, SessionManager.previewBottom);
+}
+
+
+SessionManager.previewBottom = function(){
+    // XXX: Hard to maintain. Update to use CurrentDocumentInfo.builder after #1034
+    var isVisualStatic = (
+        CurrentDocumentInfo.type === "1099-misc-efile-2014" ||
+        CurrentDocumentInfo.type === "1099-misc-efile-2015" ||
+        CurrentDocumentInfo.type === "1099-misc-efile-2016" ||
+        CurrentDocumentInfo.type === "employee-paystub" ||
+        CurrentDocumentInfo.type === "w2-efile-2014" ||
+        CurrentDocumentInfo.type === "w2-efile-2015" ||
+        CurrentDocumentInfo.type === "w2-efile-2016" ||
+        CurrentDocumentInfo.type === "w9-2014-static"
+    );
+    if(!isVisualStatic) {
+        var iframe = $('iframe.document-preview');
+        var fullSource = "export/theme.php" + location.search + "&rand="+Math.random();
+
+        iframe.attr('src', fullSource);
+        iframe.one('load', function(event) {
+            iframe.contents().find('.empty-var').css({
+                "display": "inline-block",
+                "width": "200px",
+                "borderBottom": "1px solid #999",
+                "height": "20px",
+                "background": "#e2e2e2"
+            });
+        });
+        $('document-preview-container').show();
+    }
+}
+
+
+SessionManager.save = function(successAction){
+    $(".saveButton").button('loading');
+    $("#saveBarObj").fadeIn("fast");
+    $("#saveBar").css("width","30%");
+    SessionManager.saveContentInSection(Wizard.loader.onScreen, $("#screen h2").text(), false, successAction);
+}
+
+SessionManager.autoSave = {
+    savedContent: null, // The content we've auto-saved
+    enabled: false, // Is auto save enabled
+    timer: null, // The timer for the autosave
+    state: 0, // Are we currently in the process of saving
+
+    // Start the auto save timer, only if it's currently disabled
+    start: function(){
+        if (!this.enabled) {
+            this.enabled = true;
+            this.timer = setInterval(this.save, 3000);
+
+            // Make the progress bar fixed, so hiding / showing won't affect the footer
+            $("#saveBarObj").css({"position": "absolute"});
+        };
+
+    },
+
+    stop: function(){
+        // Deactivate the timer, and mark auto save disabled
+        this.enabled = false;
+        clearInterval(this.timer);
+    },
+
+    getCurrentContent: function(){
+        // Get the current input area content of the visual static document
+        return $("#screen input,textarea,select").serialize();
+    },
+
+    save: function(){
+        var currentContent = SessionManager.autoSave.getCurrentContent();
+
+        // Check if we're already in the middle of saving our data, or if we've already saved the current data
+        if (SessionManager.autoSave.state == 1 || SessionManager.autoSave.savedContent == currentContent) {
+            return;
+        }
+
+        // Change our state to saving and reset it after the saving is complete
+        SessionManager.autoSave.state = 1;
+        // Store the current content, so we don't save the same content over and over again
+        SessionManager.autoSave.savedContent = currentContent;
+
+        // Action to perform after
+        var saveComplete = function(){
+            SessionManager.autoSave.state = 0;
+            $("#saveBarObj").hide();
+        }
+
+        // Perform the actual save
+        SessionManager.save(saveComplete);
+    }
+
+}
+
+SessionManager.preview = function()
+{
+    if (SessionManager.disablePreview) {
+        return;
+    }
+
+    SessionManager.inPreview = true;
+    $("#saveBarObj").fadeIn("fast");
+    $("#saveBar").css("width","30%");
+    $("#previewButton").button('loading');
+
+    $(".progressIcon").css({opacity:1});
+    $("body").scrollTop(0);
+
+    SessionManager.saveContentInSection(Wizard.loader.onScreen, $("#screen h2").text(), false);
+}
+
+SessionManager.editablePreview = function()
+{
+    SessionManager.previewDisplay(true, true);
+}
+
+SessionManager.closePreview = function()
+{
+    $('#previewPane').modal('hide');
+}
+
+SessionManager.complete = function(msg)
+{
+    $(".saveButton").button('finishing');
+
+    $("#saveBar").css("width","95%");
+
+    if (SessionManager.inPreview) {
+        $("#saveBarObj").fadeOut("fast");
+        $(".progressIcon").css({opacity:0});
+        SessionManager.inPreview = false;
+        SessionManager.previewDisplay();
+
+        // Reset the preview button to a previous state
+        setTimeout(function(){
+            $(".saveButton").button('reset');
+            $("#previewButton").button('reset');
+        }, 200);
+        //    document.location = "resumeTemplates/theme.php";
+    }else{
+        // Depress the button
+        $(".saveButton").button('toggle');
+    }
+};
+
+SessionManager.proceedToAccountCreation = function() {
+    // Save the current form state, and download the PDF
+    var successAction = function(){
+        // This is the default new account page url pulled from the preview modal.
+        window.location.href = $(".proceed-to-export-upgrade").attr("href");
+    };
+    SessionManager.save(successAction);
+};
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+var Wizard = {};
+Wizard.altDesign = false;
+Wizard.interface = {};
+Wizard.loader = {};
+
+Wizard.isPaidUser = function(paid){
+    Wizard.isPaid = paid;
+};
+
+Wizard.sectionsSkipped = 0;
+Wizard.lastVisibleSection = 0;
+Wizard.newSectionActions = [];
+Wizard.lastStoredScreenNumber = 0;
+Wizard.timeToCompleteSectionMultiplier = 3;
+// Used to interact with the user and manipulate the loader
+Wizard.interface = {
+    init: function(screenNumber, screenNamesArray){
+        Wizard.loader.init(screenNumber, screenNamesArray);
+        Wizard.interface.launchWithScreen(screenNumber);
+
+        this.updateNav();
+    },
+
+    launchWithScreen: function(screenNumber)
+    {
+        $("body").scrollTop(0);
+        setTimeout(function(){
+            Wizard.loader.getScreen(screenNumber);
+        }, 450);
+
+    },
+
+    showScreenByName: function(screenName)
+    {
+        return Wizard.loader.getScreenByName(screenName);
+    },
+
+    showScreen: function(screenNumber){
+        $("body").scrollTop(0);
+        $("#SectionContent-load").html("");
+        Wizard.loader.getScreen(screenNumber);
+    },
+
+    saveAndShowScreen: function(screenNumber)
+    {
+        Wizard.lastStoredScreenNumber = screenNumber;
+        var successAction = function()
+        {
+            $("body").scrollTop(0);
+            Wizard.loader.getScreen(Wizard.lastStoredScreenNumber);
+        };
+
+        SessionManager.save(successAction);
+    },
+
+    newSectionLoaded: function(){
+        $("body").scrollTop(0);
+        this.updateNav();
+        setTimeout(function(){
+            if ($(".controls :input").length)
+            {
+                $(".controls :input")[0].focus('true');
+            }
+
+        }, 300);
+
+
+        if (Wizard.newSectionActions.length)
+        {
+            for (var i = 0; i < Wizard.newSectionActions.length; i++)
+            {
+                // Execute the new section actions
+                Wizard.newSectionActions[i]();
+            };
+        };
+    },
+
+    nextStep: function(){
+        return Wizard.loader.nextScreen();
+    },
+
+    previousStep: function(){
+
+        return Wizard.loader.previousScreen();
+    },
+
+    updateNav: function(){
+        var listEl = $('#WizardNav li:not(.nav-header)');
+
+        for (var i=0; i < listEl.length; i++) {
+            if (listEl[i].className != "nav-header") {
+                listEl[i].className = "";
+                iel = listEl[i].getElementsByTagName("i")[0];
+                iel.className = iel.className.split(" ")[0];
+            };
+        };
+
+        listEl[Wizard.onStep].className = "active";
+        $('#WizardNav li:not(.nav-header)')[Wizard.onStep].getElementsByTagName("i")[0].className += " icon-white";
+
+        if (!Wizard.onStep) {
+            $(".backButton").hide();
+        }else{
+            $(".backButton").show();
+        }
+
+        if (Wizard.interface.addCheckmarks) {
+            $("#well1 li.active").prevAll().filter(":not(.nav-header)").addClass("opt_checkmark");
+        };
+
+        setTimeout(function(){
+            // Auto Scroll if we have everything enabled
+            if (Wizard.interface.autoScrollSections)
+            {
+                $("#WizardNav li.active").ScrollTo({
+                    onlyIfOutside: true
+                });
+            };
+        }, 500);
+
+    },
+
+    updateSectionProgress: function()
+    {
+        var listEl = $('#listOfSections #WizardNav li:not(.nav-header)');
+        $("#sectionProgress").html("Section " + (Wizard.onStep + 1) +" of "+listEl.length);
+    },
+
+    updateSectionProgressTimed: function()
+    {
+        var currentPosition = function(){
+            var onSection = 0;
+            $("#WizardNav li").not(".nav-header").each(function(index, el) {
+                if($(el).hasClass("active")){
+                    onSection = index;
+                }
+            });
+
+            return onSection;
+        };
+
+        var numberOfSections = $("#WizardNav li").not(".nav-header").length;
+        var onSection = currentPosition();
+        var percDone = 100*((onSection)/numberOfSections);
+        var numberLeft = numberOfSections - onSection;
+        var timeLeft = numberLeft/Wizard.timeToCompleteSectionMultiplier;
+        var minutes = Math.floor(timeLeft);
+        var seconds = timeLeft*60 % 60; seconds = seconds.toFixed(0);
+        var timeString = "";
+        var containerWidth = $('#sectionProgress').width();
+        var statusBarLeft = containerWidth * (percDone/100);
+
+        if(minutes > 0){timeString = minutes+" minute";}
+        if(minutes > 1){timeString = timeString+"s";}
+        if(seconds > 0){timeString = timeString+" "+seconds+" seconds";}
+
+        $(".statusbar div").css({width: statusBarLeft+"px"});
+
+        $("#onSectionNumber").html(onSection+1);
+        $("#percentComplete").html(percDone.toFixed(0));
+        $("#timeLeft").html(timeString);
+    },
+};
+
+/*
+ The LOADER handles all of the data loading.  None of these functions are user functions
+ This is as a private class and should be interacted ONLY with the interface
+ */
+Wizard.loader = {
+    // Default values for vars
+    onScreen: 0,
+    screens: ['contact_info'],
+
+    init: function(onScreen, screenNamesArray){
+        this.screens = screenNamesArray;
+        this.setOnScreen(onScreen);
+    },
+
+    setOnScreen: function(onScreen)
+    {
+        this.onScreen = parseInt(onScreen);
+        Wizard.onStep = parseInt(onScreen);
+    },
+
+    getScreenByName: function(screenName)
+    {
+        for (var i = 0; i < Wizard.loader.screens.length; i++)
+        {
+            if (screenName ==  Wizard.loader.screens[i]) {
+                this.getScreen(i);
+                return true;
+            }
+        };
+
+        return false;
+    },
+
+    getScreen: function(screenNum){
+        var self = this;
+
+        $("#SectionContent-load").load("_api/static-editableSectionContent.php?documentType="+Wizard.documentType+"&section="+Wizard.loader.screens[screenNum], {limit: 25},
+                                       function (responseText, textStatus, XMLHttpRequest) {
+                                           // XMLHttpRequest.responseText has the error info you want.
+                                           // alert(XMLHttpRequest.responseText);
+
+                                           self.setOnScreen(screenNum);
+                                           Wizard.interface.newSectionLoaded();
+                                       });
+    },
+
+    nextScreen: function(){
+        if (this.onScreen+1 >= this.screens.length) {
+            return false;
+        }else{
+            this.setOnScreen(this.onScreen+1);
+            this.getScreen(this.onScreen);
+            return true;
+        }
+    },
+
+    previousScreen: function(){
+        if (this.onScreen-1 < 0) {
+            return false;
+        }else{
+            this.setOnScreen(this.onScreen-1);
+            this.getScreen(this.onScreen);
+            return true;
+        }
+    }
+};

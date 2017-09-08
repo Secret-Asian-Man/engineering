@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<!-- saved from url=(0122)https://formswift.com/builder.php?documentType=non-disclosure-agreement&ses=cab2bc1d62aabe56306fb24995b55e3d&key=34277321# -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<script src="https://js-agent.newrelic.com/nr-1016.min.js"></script><script src="https://script.crazyegg.com/pages/scripts/0056/0422.js?412497" async="" type="text/javascript"></script><script type="text/javascript" async="" src="https://sjs.bizographics.com/insight.min.js"></script><script src="https://bat.bing.com/bat.js" async=""></script><script async="" src="https://www.googletagmanager.com/gtm.js?id=GTM-W7TKWX"></script><script type="text/javascript" async="" src="https://ssl.google-analytics.com/ga.js"></script><script type="text/javascript">(window.NREUM||(NREUM={})).loader_config={xpid:"Vg4DUVZXGwYFVFRXDgc="};window.NREUM||(NREUM={}),__nr_require=function(t,e,n){function r(n){if(!e[n]){var o=e[n]={exports:{}};t[n][0].call(o.exports,function(e){var o=t[n][1][e];return r(o||e)},o,o.exports)}return e[n].exports}if("function"==typeof __nr_require)return __nr_require;for(var o=0;o<n.length;o++)r(n[o]);return r}({1:[function(t,e,n){function r(t){try{c.console&&console.log(t)}catch(e){}}var o,i=t("ee"),a=t(15),c={};try{o=localStorage.getItem("__nr_flags").split(","),console&&"function"==typeof console.log&&(c.console=!0,o.indexOf("dev")!==-1&&(c.dev=!0),o.indexOf("nr_dev")!==-1&&(c.nrDev=!0))}catch(s){}c.nrDev&&i.on("internal-error",function(t){r(t.stack)}),c.dev&&i.on("fn-err",function(t,e,n){r(n.stack)}),c.dev&&(r("NR AGENT IN DEVELOPMENT MODE"),r("flags: "+a(c,function(t,e){return t}).join(", ")))},{}],2:[function(t,e,n){function r(t,e,n,r,o){try{d?d-=1:i("err",[o||new UncaughtException(t,e,n)])}catch(c){try{i("ierr",[c,(new Date).getTime(),!0])}catch(s){}}return"function"==typeof f&&f.apply(this,a(arguments))}function UncaughtException(t,e,n){this.message=t||"Uncaught error with no additional information",this.sourceURL=e,this.line=n}function o(t){i("err",[t,(new Date).getTime()])}var i=t("handle"),a=t(16),c=t("ee"),s=t("loader"),f=window.onerror,u=!1,d=0;s.features.err=!0,t(1),window.onerror=r;try{throw new Error}catch(l){"stack"in l&&(t(8),t(7),"addEventListener"in window&&t(5),s.xhrWrappable&&t(9),u=!0)}c.on("fn-start",function(t,e,n){u&&(d+=1)}),c.on("fn-err",function(t,e,n){u&&(this.thrown=!0,o(n))}),c.on("fn-end",function(){u&&!this.thrown&&d>0&&(d-=1)}),c.on("internal-error",function(t){i("ierr",[t,(new Date).getTime(),!0])})},{}],3:[function(t,e,n){t("loader").features.ins=!0},{}],4:[function(t,e,n){function r(t){}if(window.performance&&window.performance.timing&&window.performance.getEntriesByType){var o=t("ee"),i=t("handle"),a=t(8),c=t(7),s="learResourceTimings",f="addEventListener",u="resourcetimingbufferfull",d="bstResource",l="resource",p="-start",h="-end",m="fn"+p,w="fn"+h,v="bstTimer",y="pushState";t("loader").features.stn=!0,t(6);var g=NREUM.o.EV;o.on(m,function(t,e){var n=t[0];n instanceof g&&(this.bstStart=Date.now())}),o.on(w,function(t,e){var n=t[0];n instanceof g&&i("bst",[n,e,this.bstStart,Date.now()])}),a.on(m,function(t,e,n){this.bstStart=Date.now(),this.bstType=n}),a.on(w,function(t,e){i(v,[e,this.bstStart,Date.now(),this.bstType])}),c.on(m,function(){this.bstStart=Date.now()}),c.on(w,function(t,e){i(v,[e,this.bstStart,Date.now(),"requestAnimationFrame"])}),o.on(y+p,function(t){this.time=Date.now(),this.startPath=location.pathname+location.hash}),o.on(y+h,function(t){i("bstHist",[location.pathname+location.hash,this.startPath,this.time])}),f in window.performance&&(window.performance["c"+s]?window.performance[f](u,function(t){i(d,[window.performance.getEntriesByType(l)]),window.performance["c"+s]()},!1):window.performance[f]("webkit"+u,function(t){i(d,[window.performance.getEntriesByType(l)]),window.performance["webkitC"+s]()},!1)),document[f]("scroll",r,{passive:!0}),document[f]("keypress",r,!1),document[f]("click",r,!1)}},{}],5:[function(t,e,n){function r(t){for(var e=t;e&&!e.hasOwnProperty(u);)e=Object.getPrototypeOf(e);e&&o(e)}function o(t){c.inPlace(t,[u,d],"-",i)}function i(t,e){return t[1]}var a=t("ee").get("events"),c=t(17)(a,!0),s=t("gos"),f=XMLHttpRequest,u="addEventListener",d="removeEventListener";e.exports=a,"getPrototypeOf"in Object?(r(document),r(window),r(f.prototype)):f.prototype.hasOwnProperty(u)&&(o(window),o(f.prototype)),a.on(u+"-start",function(t,e){var n=t[1],r=s(n,"nr@wrapped",function(){function t(){if("function"==typeof n.handleEvent)return n.handleEvent.apply(n,arguments)}var e={object:t,"function":n}[typeof n];return e?c(e,"fn-",null,e.name||"anonymous"):n});this.wrapped=t[1]=r}),a.on(d+"-start",function(t){t[1]=this.wrapped||t[1]})},{}],6:[function(t,e,n){var r=t("ee").get("history"),o=t(17)(r);e.exports=r,o.inPlace(window.history,["pushState","replaceState"],"-")},{}],7:[function(t,e,n){var r=t("ee").get("raf"),o=t(17)(r),i="equestAnimationFrame";e.exports=r,o.inPlace(window,["r"+i,"mozR"+i,"webkitR"+i,"msR"+i],"raf-"),r.on("raf-start",function(t){t[0]=o(t[0],"fn-")})},{}],8:[function(t,e,n){function r(t,e,n){t[0]=a(t[0],"fn-",null,n)}function o(t,e,n){this.method=n,this.timerDuration="number"==typeof t[1]?t[1]:0,t[0]=a(t[0],"fn-",this,n)}var i=t("ee").get("timer"),a=t(17)(i),c="setTimeout",s="setInterval",f="clearTimeout",u="-start",d="-";e.exports=i,a.inPlace(window,[c,"setImmediate"],c+d),a.inPlace(window,[s],s+d),a.inPlace(window,[f,"clearImmediate"],f+d),i.on(s+u,r),i.on(c+u,o)},{}],9:[function(t,e,n){function r(t,e){d.inPlace(e,["onreadystatechange"],"fn-",c)}function o(){var t=this,e=u.context(t);t.readyState>3&&!e.resolved&&(e.resolved=!0,u.emit("xhr-resolved",[],t)),d.inPlace(t,w,"fn-",c)}function i(t){v.push(t),h&&(g=-g,b.data=g)}function a(){for(var t=0;t<v.length;t++)r([],v[t]);v.length&&(v=[])}function c(t,e){return e}function s(t,e){for(var n in t)e[n]=t[n];return e}t(5);var f=t("ee"),u=f.get("xhr"),d=t(17)(u),l=NREUM.o,p=l.XHR,h=l.MO,m="readystatechange",w=["onload","onerror","onabort","onloadstart","onloadend","onprogress","ontimeout"],v=[];e.exports=u;var y=window.XMLHttpRequest=function(t){var e=new p(t);try{u.emit("new-xhr",[e],e),e.addEventListener(m,o,!1)}catch(n){try{u.emit("internal-error",[n])}catch(r){}}return e};if(s(p,y),y.prototype=p.prototype,d.inPlace(y.prototype,["open","send"],"-xhr-",c),u.on("send-xhr-start",function(t,e){r(t,e),i(e)}),u.on("open-xhr-start",r),h){var g=1,b=document.createTextNode(g);new h(a).observe(b,{characterData:!0})}else f.on("fn-end",function(t){t[0]&&t[0].type===m||a()})},{}],10:[function(t,e,n){function r(t){var e=this.params,n=this.metrics;if(!this.ended){this.ended=!0;for(var r=0;r<d;r++)t.removeEventListener(u[r],this.listener,!1);if(!e.aborted){if(n.duration=(new Date).getTime()-this.startTime,4===t.readyState){e.status=t.status;var i=o(t,this.lastSize);if(i&&(n.rxSize=i),this.sameOrigin){var a=t.getResponseHeader("X-NewRelic-App-Data");a&&(e.cat=a.split(", ").pop())}}else e.status=0;n.cbTime=this.cbTime,f.emit("xhr-done",[t],t),c("xhr",[e,n,this.startTime])}}}function o(t,e){var n=t.responseType;if("json"===n&&null!==e)return e;var r="arraybuffer"===n||"blob"===n||"json"===n?t.response:t.responseText;return h(r)}function i(t,e){var n=s(e),r=t.params;r.host=n.hostname+":"+n.port,r.pathname=n.pathname,t.sameOrigin=n.sameOrigin}var a=t("loader");if(a.xhrWrappable){var c=t("handle"),s=t(11),f=t("ee"),u=["load","error","abort","timeout"],d=u.length,l=t("id"),p=t(14),h=t(13),m=window.XMLHttpRequest;a.features.xhr=!0,t(9),f.on("new-xhr",function(t){var e=this;e.totalCbs=0,e.called=0,e.cbTime=0,e.end=r,e.ended=!1,e.xhrGuids={},e.lastSize=null,p&&(p>34||p<10)||window.opera||t.addEventListener("progress",function(t){e.lastSize=t.loaded},!1)}),f.on("open-xhr-start",function(t){this.params={method:t[0]},i(this,t[1]),this.metrics={}}),f.on("open-xhr-end",function(t,e){"loader_config"in NREUM&&"xpid"in NREUM.loader_config&&this.sameOrigin&&e.setRequestHeader("X-NewRelic-ID",NREUM.loader_config.xpid)}),f.on("send-xhr-start",function(t,e){var n=this.metrics,r=t[0],o=this;if(n&&r){var i=h(r);i&&(n.txSize=i)}this.startTime=(new Date).getTime(),this.listener=function(t){try{"abort"===t.type&&(o.params.aborted=!0),("load"!==t.type||o.called===o.totalCbs&&(o.onloadCalled||"function"!=typeof e.onload))&&o.end(e)}catch(n){try{f.emit("internal-error",[n])}catch(r){}}};for(var a=0;a<d;a++)e.addEventListener(u[a],this.listener,!1)}),f.on("xhr-cb-time",function(t,e,n){this.cbTime+=t,e?this.onloadCalled=!0:this.called+=1,this.called!==this.totalCbs||!this.onloadCalled&&"function"==typeof n.onload||this.end(n)}),f.on("xhr-load-added",function(t,e){var n=""+l(t)+!!e;this.xhrGuids&&!this.xhrGuids[n]&&(this.xhrGuids[n]=!0,this.totalCbs+=1)}),f.on("xhr-load-removed",function(t,e){var n=""+l(t)+!!e;this.xhrGuids&&this.xhrGuids[n]&&(delete this.xhrGuids[n],this.totalCbs-=1)}),f.on("addEventListener-end",function(t,e){e instanceof m&&"load"===t[0]&&f.emit("xhr-load-added",[t[1],t[2]],e)}),f.on("removeEventListener-end",function(t,e){e instanceof m&&"load"===t[0]&&f.emit("xhr-load-removed",[t[1],t[2]],e)}),f.on("fn-start",function(t,e,n){e instanceof m&&("onload"===n&&(this.onload=!0),("load"===(t[0]&&t[0].type)||this.onload)&&(this.xhrCbStart=(new Date).getTime()))}),f.on("fn-end",function(t,e){this.xhrCbStart&&f.emit("xhr-cb-time",[(new Date).getTime()-this.xhrCbStart,this.onload,e],e)})}},{}],11:[function(t,e,n){e.exports=function(t){var e=document.createElement("a"),n=window.location,r={};e.href=t,r.port=e.port;var o=e.href.split("://");!r.port&&o[1]&&(r.port=o[1].split("/")[0].split("@").pop().split(":")[1]),r.port&&"0"!==r.port||(r.port="https"===o[0]?"443":"80"),r.hostname=e.hostname||n.hostname,r.pathname=e.pathname,r.protocol=o[0],"/"!==r.pathname.charAt(0)&&(r.pathname="/"+r.pathname);var i=!e.protocol||":"===e.protocol||e.protocol===n.protocol,a=e.hostname===document.domain&&e.port===n.port;return r.sameOrigin=i&&(!e.hostname||a),r}},{}],12:[function(t,e,n){function r(){}function o(t,e,n){return function(){return i(t,[(new Date).getTime()].concat(c(arguments)),e?null:this,n),e?void 0:this}}var i=t("handle"),a=t(15),c=t(16),s=t("ee").get("tracer"),f=NREUM;"undefined"==typeof window.newrelic&&(newrelic=f);var u=["setPageViewName","setCustomAttribute","setErrorHandler","finished","addToTrace","inlineHit","addRelease"],d="api-",l=d+"ixn-";a(u,function(t,e){f[e]=o(d+e,!0,"api")}),f.addPageAction=o(d+"addPageAction",!0),f.setCurrentRouteName=o(d+"routeName",!0),e.exports=newrelic,f.interaction=function(){return(new r).get()};var p=r.prototype={createTracer:function(t,e){var n={},r=this,o="function"==typeof e;return i(l+"tracer",[Date.now(),t,n],r),function(){if(s.emit((o?"":"no-")+"fn-start",[Date.now(),r,o],n),o)try{return e.apply(this,arguments)}finally{s.emit("fn-end",[Date.now()],n)}}}};a("setName,setAttribute,save,ignore,onEnd,getContext,end,get".split(","),function(t,e){p[e]=o(l+e)}),newrelic.noticeError=function(t){"string"==typeof t&&(t=new Error(t)),i("err",[t,(new Date).getTime()])}},{}],13:[function(t,e,n){e.exports=function(t){if("string"==typeof t&&t.length)return t.length;if("object"==typeof t){if("undefined"!=typeof ArrayBuffer&&t instanceof ArrayBuffer&&t.byteLength)return t.byteLength;if("undefined"!=typeof Blob&&t instanceof Blob&&t.size)return t.size;if(!("undefined"!=typeof FormData&&t instanceof FormData))try{return JSON.stringify(t).length}catch(e){return}}}},{}],14:[function(t,e,n){var r=0,o=navigator.userAgent.match(/Firefox[\/\s](\d+\.\d+)/);o&&(r=+o[1]),e.exports=r},{}],15:[function(t,e,n){function r(t,e){var n=[],r="",i=0;for(r in t)o.call(t,r)&&(n[i]=e(r,t[r]),i+=1);return n}var o=Object.prototype.hasOwnProperty;e.exports=r},{}],16:[function(t,e,n){function r(t,e,n){e||(e=0),"undefined"==typeof n&&(n=t?t.length:0);for(var r=-1,o=n-e||0,i=Array(o<0?0:o);++r<o;)i[r]=t[e+r];return i}e.exports=r},{}],17:[function(t,e,n){function r(t){return!(t&&t instanceof Function&&t.apply&&!t[a])}var o=t("ee"),i=t(16),a="nr@original",c=Object.prototype.hasOwnProperty,s=!1;e.exports=function(t,e){function n(t,e,n,o){function nrWrapper(){var r,a,c,s;try{a=this,r=i(arguments),c="function"==typeof n?n(r,a):n||{}}catch(f){l([f,"",[r,a,o],c])}u(e+"start",[r,a,o],c);try{return s=t.apply(a,r)}catch(d){throw u(e+"err",[r,a,d],c),d}finally{u(e+"end",[r,a,s],c)}}return r(t)?t:(e||(e=""),nrWrapper[a]=t,d(t,nrWrapper),nrWrapper)}function f(t,e,o,i){o||(o="");var a,c,s,f="-"===o.charAt(0);for(s=0;s<e.length;s++)c=e[s],a=t[c],r(a)||(t[c]=n(a,f?c+o:o,i,c))}function u(n,r,o){if(!s||e){var i=s;s=!0;try{t.emit(n,r,o)}catch(a){l([a,n,r,o])}s=i}}function d(t,e){if(Object.defineProperty&&Object.keys)try{var n=Object.keys(t);return n.forEach(function(n){Object.defineProperty(e,n,{get:function(){return t[n]},set:function(e){return t[n]=e,e}})}),e}catch(r){l([r])}for(var o in t)c.call(t,o)&&(e[o]=t[o]);return e}function l(e){try{t.emit("internal-error",e)}catch(n){}}return t||(t=o),n.inPlace=f,n.flag=a,n}},{}],ee:[function(t,e,n){function r(){}function o(t){function e(t){return t&&t instanceof r?t:t?s(t,c,i):i()}function n(n,r,o){if(!l.aborted){t&&t(n,r,o);for(var i=e(o),a=h(n),c=a.length,s=0;s<c;s++)a[s].apply(i,r);var f=u[y[n]];return f&&f.push([g,n,r,i]),i}}function p(t,e){v[t]=h(t).concat(e)}function h(t){return v[t]||[]}function m(t){return d[t]=d[t]||o(n)}function w(t,e){f(t,function(t,n){e=e||"feature",y[n]=e,e in u||(u[e]=[])})}var v={},y={},g={on:p,emit:n,get:m,listeners:h,context:e,buffer:w,abort:a,aborted:!1};return g}function i(){return new r}function a(){(u.api||u.feature)&&(l.aborted=!0,u=l.backlog={})}var c="nr@context",s=t("gos"),f=t(15),u={},d={},l=e.exports=o();l.backlog=u},{}],gos:[function(t,e,n){function r(t,e,n){if(o.call(t,e))return t[e];var r=n();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(t,e,{value:r,writable:!0,enumerable:!1}),r}catch(i){}return t[e]=r,r}var o=Object.prototype.hasOwnProperty;e.exports=r},{}],handle:[function(t,e,n){function r(t,e,n,r){o.buffer([t],r),o.emit(t,e,n)}var o=t("ee").get("handle");e.exports=r,r.ee=o},{}],id:[function(t,e,n){function r(t){var e=typeof t;return!t||"object"!==e&&"function"!==e?-1:t===window?0:a(t,i,function(){return o++})}var o=1,i="nr@id",a=t("gos");e.exports=r},{}],loader:[function(t,e,n){function r(){if(!b++){var t=g.info=NREUM.info,e=d.getElementsByTagName("script")[0];if(setTimeout(f.abort,3e4),!(t&&t.licenseKey&&t.applicationID&&e))return f.abort();s(v,function(e,n){t[e]||(t[e]=n)}),c("mark",["onload",a()],null,"api");var n=d.createElement("script");n.src="https://"+t.agent,e.parentNode.insertBefore(n,e)}}function o(){"complete"===d.readyState&&i()}function i(){c("mark",["domContent",a()],null,"api")}function a(){return(new Date).getTime()}var c=t("handle"),s=t(15),f=t("ee"),u=window,d=u.document,l="addEventListener",p="attachEvent",h=u.XMLHttpRequest,m=h&&h.prototype;NREUM.o={ST:setTimeout,CT:clearTimeout,XHR:h,REQ:u.Request,EV:u.Event,PR:u.Promise,MO:u.MutationObserver},t(12);var w=""+location,v={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-1016.min.js"},y=h&&m&&m[l]&&!/CriOS/.test(navigator.userAgent),g=e.exports={offset:a(),origin:w,features:{},xhrWrappable:y};d[l]?(d[l]("DOMContentLoaded",i,!1),u[l]("load",r,!1)):(d[p]("onreadystatechange",o),u[p]("onload",r)),c("mark",["firstbyte",a()],null,"api");var b=0},{}]},{},["loader",2,10,4,3]);</script>
+    <script type="text/javascript" src="./FormSwift _ Create your non-disclosure-agreement!_files/builder.js.download"></script><style type="text/css">
+:root #content > #right > .dose > .dosesingle,
+:root #content > #center > .dose > .dosesingle,
+:root #header + #content > #left > #rlblock_left
+{ display: none !important; }</style>
+
+            <script type="text/javascript">
+                    </script>
+
+        <script src="https://cdn.optimizely.com/js/48120048.js"></script>
+
+    
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+    <link rel="shortcut icon" href="https://formswift.com/images/favicon.ico">
+
+                    <style type="text/css" media="screen">@import "//cdn.smartresumewizard.com/bootstrap/css/bootstrap.min.css";</style>
+    
+    <style type="text/css" media="screen">@import "//formswift.com/styles/bsOverlay.css?v=29";</style>
+<script type="text/javascript" src="./FormSwift _ Create your non-disclosure-agreement!_files/basics.js.download"></script>
+<script type="text/javascript" src="./FormSwift _ Create your non-disclosure-agreement!_files/actions.js.download"></script>
+
+<script type="text/javascript" src="./FormSwift _ Create your non-disclosure-agreement!_files/trackUsage.js.download"></script>
+
+    <script type="text/javascript" src="./FormSwift _ Create your non-disclosure-agreement!_files/scrollTo.js.download"></script>
+
+<script type="text/javascript" src="./FormSwift _ Create your non-disclosure-agreement!_files/flow.js.download"></script>
+
+
+
+
+<style>
+    #browserSwitch{
+        display: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background: #0a436b;
+        width: 100%;
+        height: 10000px;
+        z-index: 100000;
+        padding-top: 10px;
+    }
+
+    .browserMessage{
+        margin-top: 10px;
+        background: #fff;
+        padding: 30px ;
+        font-size: 18px;
+        padding-bottom: 141px;
+    }
+
+    .browserMessage p{
+        width: 450px;
+        margin: 30px auto;
+
+    }
+
+    .browserMessage.hero-unit h1 {
+        font-size: 42px;
+    }
+</style>
+
+<!-- Disable access for IE less than IE 11 -->
+<!--[if lt IE 11]>
+    <style>
+        #browserSwitch{
+            display: block !important;
+        }
+    </style>
+<![endif]-->
+
+
+<script type="text/javascript">
+// Add the logo & color scheme of the site into our message
+$(function() {
+    var BS_logoSrc = $("#srs_logo img").attr("src") || $(".logo img").attr("src") || "//cdn.smartresumewizard.com/images/logos/formswift.png";
+    var BS_headerBG = $("#header").css("background-color") || "#0a436b";
+    var BS_siteName = $("#srs_logo img").attr("alt") || "FormSwift";
+
+    $("#browserSwitch #siteLogo").attr("src", BS_logoSrc);
+    $("#browserSwitch #siteName").html(BS_siteName);
+    $("#browserSwitch").css("background", BS_headerBG);
+});
+
+// IE10 Doesn't read IE Conditionals. So we have to use JS
+if (Function('/*@cc_on return document.documentMode===10@*/')()){
+    $(function() {
+         $("#browserSwitch").show();
+    });
+}
+</script>
+
+<style>@media print {#ghostery-purple-box {display:none !important}}</style><style type="text/css">@media print{.lpiframeoverlay{display:none}}</style><script async="true" type="text/javascript" src="https://s.adroll.com/j/roundtrip.js"></script></head><script id="pb_blockScript">function inject() {
+		var originalOpenWndFnKey = "originalOpenFunction";
+		var originalWindowOpenFn = window.open;
+		var originalCreateElementFn = document.createElement;
+		var originalCreateEventFn = document.createEvent;
+		var windowsWithNames = {};
+		var timeSinceCreateAElement = 0;
+		var lastCreatedAElement = null;
+		var fullScreenOpenTime = void 0;
+		var parentOrigin = window.location != window.parent.location ? document.referrer : document.location;
+
+		window[originalOpenWndFnKey] = window.open; // save the original open window as global param
+		function newWindowOpenFn() {
+			var openWndArguments = arguments;
+			var useOriginalOpenWnd = true;
+			var generatedWindow = null;
+
+			function blockedWndNotification(openWndArguments) {
+				parent.postMessage({ type: "blockedWindow", args: JSON.stringify(openWndArguments) }, parentOrigin);
+			}
+
+			function getWindowName(openWndArguments) {
+				var windowName = openWndArguments[1];
+				if (windowName != null && !["_blank", "_parent", "_self", "_top"].includes(windowName)) {
+					return windowName;
+				}
+
+				return null;
+			}
+
+			function copyMissingProperties(src, dest) {
+				var prop = void 0;
+				for (prop in src) {
+					try {
+						if (dest[prop] === undefined && src[prop]) {
+							dest[prop] = src[prop];
+						}
+					} catch (e) {}
+				}
+				return dest;
+			}
+
+			// the element who registered to the event
+			var capturingElement = null;
+			if (window.event != null) {
+				capturingElement = window.event.currentTarget;
+			}
+
+			if (capturingElement == null) {
+				var caller = openWndArguments.callee;
+				while (caller.arguments != null && caller.arguments.callee.caller != null) {
+					caller = caller.arguments.callee.caller;
+				}
+				if (caller.arguments != null && caller.arguments.length > 0 && caller.arguments[0].currentTarget != null) {
+					capturingElement = caller.arguments[0].currentTarget;
+				}
+			}
+
+			/////////////////////////////////////////////////////////////////////////////////
+			// Blocked if a click on background element occurred (<body> or document)
+			/////////////////////////////////////////////////////////////////////////////////
+
+			if (capturingElement != null && (capturingElement instanceof Window || capturingElement === document || capturingElement.URL != null && capturingElement.body != null || capturingElement.nodeName != null && (capturingElement.nodeName.toLowerCase() == "body" || capturingElement.nodeName.toLowerCase() == "#document"))) {
+				window.pbreason = "Blocked a new window opened with URL: " + openWndArguments[0] + " because it was triggered by the " + capturingElement.nodeName + " element";
+				useOriginalOpenWnd = false;
+			} else {
+				useOriginalOpenWnd = true;
+			}
+			/////////////////////////////////////////////////////////////////////////////////
+
+
+			/////////////////////////////////////////////////////////////////////////////////
+			// Block if a full screen was just initiated while opening this url.
+			/////////////////////////////////////////////////////////////////////////////////
+
+			var fullScreenElement = document.webkitFullscreenElement || document.mozFullscreenElement || document.fullscreenElement;
+			if (new Date().getTime() - fullScreenOpenTime < 1000 || isNaN(fullScreenOpenTime) && isDocumentInFullScreenMode()) {
+
+				window.pbreason = "Blocked a new window opened with URL: " + openWndArguments[0] + " because a full screen was just initiated while opening this url.";
+
+				/* JRA REMOVED
+	    if (window[script_params.fullScreenFnKey]) {
+	    window.clearTimeout(window[script_params.fullScreenFnKey]);
+	    }
+	    */
+
+				if (document.exitFullscreen) {
+					document.exitFullscreen();
+				} else if (document.mozCancelFullScreen) {
+					document.mozCancelFullScreen();
+				} else if (document.webkitCancelFullScreen) {
+					document.webkitCancelFullScreen();
+				}
+
+				useOriginalOpenWnd = false;
+			}
+			/////////////////////////////////////////////////////////////////////////////////
+
+
+			if (useOriginalOpenWnd == true) {
+				generatedWindow = originalWindowOpenFn.apply(this, openWndArguments);
+				// save the window by name, for latter use.
+				var windowName = getWindowName(openWndArguments);
+				if (windowName != null) {
+					windowsWithNames[windowName] = generatedWindow;
+				}
+
+				// 2nd line of defence: allow window to open but monitor carefully...
+
+				/////////////////////////////////////////////////////////////////////////////////
+				// Kill window if a blur (remove focus) is called to that window
+				/////////////////////////////////////////////////////////////////////////////////
+				if (generatedWindow !== window) {
+					(function () {
+						var openTime = new Date().getTime();
+						var originalWndBlurFn = generatedWindow.blur;
+						generatedWindow.blur = function () {
+							if (new Date().getTime() - openTime < 1000 /* one second */) {
+									window.pbreason = "Blocked a new window opened with URL: " + openWndArguments[0] + " because a it was blured";
+									generatedWindow.close();
+									blockedWndNotification(openWndArguments);
+								} else {
+								originalWndBlurFn();
+							}
+						};
+					})();
+				}
+				/////////////////////////////////////////////////////////////////////////////////
+			} else {
+				var windowName;
+
+				(function () {
+					// (useOriginalOpenWnd == false)
+
+					var location = {
+						href: openWndArguments[0]
+					};
+					location.replace = function (url) {
+						location.href = url;
+					};
+
+					generatedWindow = {
+						close: function close() {
+							return true;
+						},
+						test: function test() {
+							return true;
+						},
+						blur: function blur() {
+							return true;
+						},
+						focus: function focus() {
+							return true;
+						},
+						showModelessDialog: function showModelessDialog() {
+							return true;
+						},
+						showModalDialog: function showModalDialog() {
+							return true;
+						},
+						prompt: function prompt() {
+							return true;
+						},
+						confirm: function confirm() {
+							return true;
+						},
+						alert: function alert() {
+							return true;
+						},
+						moveTo: function moveTo() {
+							return true;
+						},
+						moveBy: function moveBy() {
+							return true;
+						},
+						resizeTo: function resizeTo() {
+							return true;
+						},
+						resizeBy: function resizeBy() {
+							return true;
+						},
+						scrollBy: function scrollBy() {
+							return true;
+						},
+						scrollTo: function scrollTo() {
+							return true;
+						},
+						getSelection: function getSelection() {
+							return true;
+						},
+						onunload: function onunload() {
+							return true;
+						},
+						print: function print() {
+							return true;
+						},
+						open: function open() {
+							return this;
+						},
+
+						opener: window,
+						closed: false,
+						innerHeight: 480,
+						innerWidth: 640,
+						name: openWndArguments[1],
+						location: location,
+						document: { location: location }
+					};
+
+					copyMissingProperties(window, generatedWindow);
+
+					generatedWindow.window = generatedWindow;
+
+					windowName = getWindowName(openWndArguments);
+
+					if (windowName != null) {
+						try {
+							// originalWindowOpenFn("", windowName).close();
+							windowsWithNames[windowName].close();
+						} catch (err) {}
+					}
+					//why set timeout?
+					setTimeout(function () {
+						var url = void 0;
+						if (!(generatedWindow.location instanceof Object)) {
+							url = generatedWindow.location;
+						} else if (!(generatedWindow.document.location instanceof Object)) {
+							url = generatedWindow.document.location;
+						} else if (location.href != null) {
+							url = location.href;
+						} else {
+							url = openWndArguments[0];
+						}
+						openWndArguments[0] = url;
+						blockedWndNotification(openWndArguments);
+					}, 100);
+				})();
+			}
+
+			return generatedWindow;
+		}
+
+		/////////////////////////////////////////////////////////////////////////////////
+		// Replace the window open method with Poper Blocker's
+		/////////////////////////////////////////////////////////////////////////////////
+		window.open = function () {
+			try {
+				return newWindowOpenFn.apply(this, arguments);
+			} catch (err) {
+				return null;
+			}
+		};
+		/////////////////////////////////////////////////////////////////////////////////
+
+
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////
+		// Monitor dynamic html element creation to prevent generating <a> elements with click dispatching event
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////
+		document.createElement = function () {
+
+			var newElement = originalCreateElementFn.apply(document, arguments);
+
+			if (arguments[0] == "a" || arguments[0] == "A") {
+				(function () {
+
+					timeSinceCreateAElement = new Date().getTime();
+
+					var originalDispatchEventFn = newElement.dispatchEvent;
+
+					newElement.dispatchEvent = function (event) {
+						if (event.type != null && ("" + event.type).toLocaleLowerCase() == "click") {
+							window.pbreason = "blocked due to an explicit dispatchEvent event with type 'click' on an 'a' tag";
+							parent.postMessage({
+								type: "blockedWindow",
+								args: JSON.stringify({ "0": newElement.href })
+							}, parentOrigin);
+							return true;
+						}
+
+						return originalDispatchEventFn(event);
+					};
+
+					lastCreatedAElement = newElement;
+				})();
+			}
+
+			return newElement;
+		};
+		/////////////////////////////////////////////////////////////////////////////////
+
+
+		/////////////////////////////////////////////////////////////////////////////////
+		// Block artificial mouse click on frashly created <a> elements
+		/////////////////////////////////////////////////////////////////////////////////
+		document.createEvent = function () {
+			try {
+				if (arguments[0].toLowerCase().includes("mouse") && new Date().getTime() - timeSinceCreateAElement <= 50) {
+					window.pbreason = "Blocked because 'a' element was recently created and " + arguments[0] + " event was created shortly after";
+					arguments[0] = lastCreatedAElement.href;
+					parent.postMessage({
+						type: "blockedWindow",
+						args: JSON.stringify({ "0": lastCreatedAElement.href })
+					}, parentOrigin);
+					return null;
+				}
+				return originalCreateEventFn.apply(document, arguments);
+			} catch (err) {}
+		};
+		/////////////////////////////////////////////////////////////////////////////////
+
+
+		/////////////////////////////////////////////////////////////////////////////////
+		// Monitor full screen requests
+		/////////////////////////////////////////////////////////////////////////////////
+		function onFullScreen(isInFullScreenMode) {
+			if (isInFullScreenMode) {
+				fullScreenOpenTime = new Date().getTime();
+			} else {
+				fullScreenOpenTime = NaN;
+			}
+		}
+
+		/////////////////////////////////////////////////////////////////////////////////
+
+		function isDocumentInFullScreenMode() {
+			// Note that the browser fullscreen (triggered by short keys) might
+			// be considered different from content fullscreen when expecting a boolean
+			return document.fullScreenElement && document.fullScreenElement !== null || // alternative standard methods
+			document.mozFullscreenElement != null || document.webkitFullscreenElement != null; // current working methods
+		}
+
+		document.addEventListener("fullscreenchange", function () {
+			onFullScreen(document.fullscreen);
+		}, false);
+
+		document.addEventListener("mozfullscreenchange", function () {
+			onFullScreen(document.mozFullScreen);
+		}, false);
+
+		document.addEventListener("webkitfullscreenchange", function () {
+			onFullScreen(document.webkitIsFullScreen);
+		}, false);
+	}</script><script>inject()</script><body id="resumebuilder" class="cardInterface hasGoogleVoiceExt" style=""><div id="lptopspacer64989070" style="height: 40px;"></div><header id="browserSwitch" style="background: rgb(27, 66, 109);">
+    <div id="bsContent" class="centered">
+        <img id="siteLogo" src="./FormSwift _ Create your non-disclosure-agreement!_files/formswift.png">
+        <div class="browserMessage hero-unit">
+            <h1>Free Browser Upgrade Required</h1>
+            <p>Thank you for choosing <em id="siteName">FormSwift</em>.  We offer cool tools to help you create, sign, and edit documents.</p>
+            <p>Your browser does not support the features we offer. Don't worry! Upgrading is super <strong> Easy &amp; Free</strong></p>
+            <p><a href="http://windows.microsoft.com/en-us/internet-explorer/download-ie" class="btn btn-success btn-large btn-xlarge">Upgrade Browser Now!</a></p>
+            <p class="alert alert-info">Need help? Give us a call! <strong>1-888-311-2977</strong> (Toll free)</p>
+        </div>
+    </div>
+</header>
+
+
+<style type="text/css" media="screen">@import "/styles/bsOverlay-responsive.css?v=17";</style>
+
+            <script>
+                SessionManager.init('34277321', 'cab2bc1d62aabe56306fb24995b55e3d');
+            </script>
+        
+<title>
+FormSwift : Create your non-disclosure-agreement!</title>
+
+
+
+
+    
+    <div id="wrapper" class="resumebuilder responsive">
+        
+            <div id="header">
+                <div id="header_content">
+                    <div class="static-builder-header container-fluid">
+                        <div id="srs_logo"><a href="https://formswift.com/"><img src="./FormSwift _ Create your non-disclosure-agreement!_files/formswift.png" alt="FormSwift"></a>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            <div id="content">
+            <div id="innerContent">
+                
+        
+            <script>
+                var CurrentDocumentInfo = {};
+                CurrentDocumentInfo.builder = 'static';
+                CurrentDocumentInfo.type = 'non-disclosure-agreement';
+                CurrentDocumentInfo.label = 'Non-Disclosure Agreement';
+                CurrentDocumentInfo.category = 'Business';
+                CurrentDocumentInfo.subcategory = 'Employment';
+            </script>
+        
+
+        <div class="toolbar">
+            <div class="toolbar_content">
+                
+            </div>
+        </div>
+
+        
+
+        <div class="">
+            <div class="container_content">
+                <div id="srb_wrapper">
+                    <div id="srb_content_wrapper">
+                        
+                        
+                        
+                        
+<!-- Mark paid user in JS -->
+<script>
+ if (typeof(SessionManager)) {
+          
+
+ };
+
+</script>
+
+<!-- Adjustments for new builder layout -->
+<script type="text/javascript">
+$(function () {
+    BuilderNav.init();
+});
+</script>
+
+<script src="./FormSwift _ Create your non-disclosure-agreement!_files/finishLater.js.download" type="text/javascript" charset="utf-8"></script>
+<script src="./FormSwift _ Create your non-disclosure-agreement!_files/bootstrap-datepicker.js.download" type="text/javascript" charset="utf-8"></script>
+<link rel="stylesheet" type="text/css" href="./FormSwift _ Create your non-disclosure-agreement!_files/datepicker.css">
+<script type="text/javascript" src="./FormSwift _ Create your non-disclosure-agreement!_files/jquery.placeholder.js.download"></script>
+<script src="./FormSwift _ Create your non-disclosure-agreement!_files/builderNav.js.download" type="text/javascript" charset="utf-8"></script>
+
+<div id="exportButtons" class="builder-toolbar btn-toolbar static">
+    <p class="doc-name"><span>Document</span> Non-Disclosure Agreement</p>
+    <div class="builder-toolbar-arrow-wrapper active-arrow" onclick="_track(&#39;Side By Side Preview Sliding Section&#39;,&#39;non-disclosure-agreement&#39;)">
+        <img class="builder-toolbar-arrow-img" src="./FormSwift _ Create your non-disclosure-agreement!_files/gray-right-toolbar-arrow.png">
+    </div>
+    <div class="container-fluid builder-toolbar-inner-wrapper">
+        <div id="sectionProgress" class="section-progress-wrapper">
+            <div class="status-box">
+                    <div class="status-info"><span id="percentComplete">0</span>% Complete <i>(apx. <span id="timeLeft">3 minutes 40 seconds</span>)</i></div>
+                    <strong>Section <span id="onSectionNumber">1</span></strong>
+                <div class="statusbar"><div style="width: 0px;">&nbsp;</div></div>
+            </div>
+        </div>
+        <div class="btn-group pull-right">
+            <a class="btn btn-success export-button-preview" onclick="_track(&quot;Proceed To Export Upgrade&quot;, &quot;non-disclosure-agreement&quot;);SessionManager.save(function () { return true; });" href="https://formswift.com/newAccountForDoc.php?documentType=non-disclosure-agreement&amp;ses=cab2bc1d62aabe56306fb24995b55e3d&amp;key=34277321">
+                <i class="icon-share-alt icon-white"></i>
+                Export Your Non-Disclosure Agreement            </a>
+                    </div>
+    </div>
+</div>
+
+<div class="row-fluid builder static-builder"><div class="span3 navMargins builder-nav collapsed" style="display: none;">
+        <div class="well well-no-padding" id="well1">
+            <ul id="WizardNav" class="nav nav-list">
+                <li class="nav-header">Non-Disclosure Agreement</li><li class="active"><a href="https://formswift.com/builder.php?documentType=non-disclosure-agreement&amp;ses=cab2bc1d62aabe56306fb24995b55e3d&amp;key=34277321#" style="overflow: hidden;" onclick="Wizard.interface.saveAndShowScreen(0);_track(&quot;non-disclosure-agreement | Builder&quot;, &quot;Effective Date | Menu&quot;);"><i class=" icon-white"></i>Effective Date</a></li><li class=""><a href="https://formswift.com/builder.php?documentType=non-disclosure-agreement&amp;ses=cab2bc1d62aabe56306fb24995b55e3d&amp;key=34277321#" style="overflow: hidden;" onclick="Wizard.interface.saveAndShowScreen(1);_track(&quot;non-disclosure-agreement | Builder&quot;, &quot;Disclosing Party | Menu&quot;);"><i class=""></i>Disclosing Party</a></li><li class=""><a href="https://formswift.com/builder.php?documentType=non-disclosure-agreement&amp;ses=cab2bc1d62aabe56306fb24995b55e3d&amp;key=34277321#" style="overflow: hidden;" onclick="Wizard.interface.saveAndShowScreen(2);_track(&quot;non-disclosure-agreement | Builder&quot;, &quot;Recipient | Menu&quot;);"><i class=""></i>Recipient</a></li><li class=""><a href="https://formswift.com/builder.php?documentType=non-disclosure-agreement&amp;ses=cab2bc1d62aabe56306fb24995b55e3d&amp;key=34277321#" style="overflow: hidden;" onclick="Wizard.interface.saveAndShowScreen(3);_track(&quot;non-disclosure-agreement | Builder&quot;, &quot;Project Description | Menu&quot;);"><i class=""></i>Project Description</a></li><li class=""><a href="https://formswift.com/builder.php?documentType=non-disclosure-agreement&amp;ses=cab2bc1d62aabe56306fb24995b55e3d&amp;key=34277321#" style="overflow: hidden;" onclick="Wizard.interface.saveAndShowScreen(4);_track(&quot;non-disclosure-agreement | Builder&quot;, &quot;Recipient Role | Menu&quot;);"><i class=""></i>Recipient Role</a></li><li class=""><a href="https://formswift.com/builder.php?documentType=non-disclosure-agreement&amp;ses=cab2bc1d62aabe56306fb24995b55e3d&amp;key=34277321#" style="overflow: hidden;" onclick="Wizard.interface.saveAndShowScreen(5);_track(&quot;non-disclosure-agreement | Builder&quot;, &quot;Non Disclosure Term | Menu&quot;);"><i class=""></i>Non Disclosure Term</a></li><li class=""><a href="https://formswift.com/builder.php?documentType=non-disclosure-agreement&amp;ses=cab2bc1d62aabe56306fb24995b55e3d&amp;key=34277321#" style="overflow: hidden;" onclick="Wizard.interface.saveAndShowScreen(6);_track(&quot;non-disclosure-agreement | Builder&quot;, &quot;Non Disclosure Obligations Extension | Menu&quot;);"><i class=""></i>Non Disclosure Obligations Extension</a></li><li class=""><a href="https://formswift.com/builder.php?documentType=non-disclosure-agreement&amp;ses=cab2bc1d62aabe56306fb24995b55e3d&amp;key=34277321#" style="overflow: hidden;" onclick="Wizard.interface.saveAndShowScreen(7);_track(&quot;non-disclosure-agreement | Builder&quot;, &quot;Non Circumvention Clause | Menu&quot;);"><i class=""></i>Non Circumvention Clause</a></li><li class=""><a href="https://formswift.com/builder.php?documentType=non-disclosure-agreement&amp;ses=cab2bc1d62aabe56306fb24995b55e3d&amp;key=34277321#" style="overflow: hidden;" onclick="Wizard.interface.saveAndShowScreen(8);_track(&quot;non-disclosure-agreement | Builder&quot;, &quot;Disclosing Party Signature | Menu&quot;);"><i class=""></i>Disclosing Party Signature</a></li><li class=""><a href="https://formswift.com/builder.php?documentType=non-disclosure-agreement&amp;ses=cab2bc1d62aabe56306fb24995b55e3d&amp;key=34277321#" style="overflow: hidden;" onclick="Wizard.interface.saveAndShowScreen(9);_track(&quot;non-disclosure-agreement | Builder&quot;, &quot;Recipient Signature | Menu&quot;);"><i class=""></i>Recipient Signature</a></li><li class=""><a href="https://formswift.com/builder.php?documentType=non-disclosure-agreement&amp;ses=cab2bc1d62aabe56306fb24995b55e3d&amp;key=34277321#" style="overflow: hidden;" onclick="Wizard.interface.saveAndShowScreen(10);_track(&quot;non-disclosure-agreement | Builder&quot;, &quot;Governing Laws | Menu&quot;);"><i class=""></i>Governing Laws</a></li>            </ul>
+        </div>
+    </div>
+    
+    <div class="span5 static-builder-content expanded">
+        <div id="SectionContent-load">
+
+<!-- Add Overridding document specific stylesheet if it exists -->
+
+<div id="loadedContentArea">
+    <div id="bgScreen" class="hide">
+        <h4>Loading Next Section...</h4>
+        <div class="progressAnimation">
+            <span class="bar"></span>
+        </div>
+    </div>
+    <div class="clear"></div>
+    <div id="screen" class="bpage" style="opacity: 1;">
+        <h2>When will this Agreement take effect?</h2>
+        <div class="innerContent">
+            <form class="form-vertical" _lpchecked="1">
+                <fieldset>
+
+                    <div class="control-group" id="group_effective_day">
+                        <label class="control-label" for="effective_day">Date:</label>
+                        <div class="controls">
+                            <input type="text" id="effective_day" placeholder="" class="input-large datepicker-calendar" data-date-date="" data-date-format="mm/dd/yyyy" name="effective_day" value="01/23/2017">
+                            
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        
+                        <button type="button" onclick="SessionManager.saveAndContinue();_track(&#39;Section &#39;+Wizard.onStep+&#39; | Save And Continue&#39;, &#39;non-disclosure-agreement | Builder&#39;);" data-loading-text="Saving..." data-finishing-text="Finishing..." class="pull-right btn btn-large btn-success saveButton"><span><span class="oldDesign">Save &amp;</span> Continue</span></button>
+                        <button type="button" onclick="Wizard.interface.previousStep();_track(&#39;Section &#39;+(Wizard.onStep+1)+&#39; | Back Button&#39;, &#39;non-disclosure-agreement | Builder&#39;);" data-loading-text="Saving..." data-finishing-text="Finishing..." class="backButton pull-left btn btn-large" style="display: none;">Back</button>
+
+
+                    </div>
+
+                </fieldset>
+            </form>
+        </div>
+    </div>
+    <div id="saveBarObj" style="display: none;" class="progress progress-striped active">
+        <div id="saveBar" class="bar" style="width: 40%;"></div>
+    </div>
+</div>
+
+
+<script>
+    $(function(){
+        // Skip sections if we don't have any visible forms to fill in
+        if ($("fieldset .control-group:visible").length === 0)
+        {
+            // Check if we can go to the next step (or if it's the last section)
+            var nextStepComplete = Wizard.interface.nextStep();
+            $(".progressAnimation .bar").animate({width:"95%"}, 400);
+            if (!nextStepComplete) {
+                SessionManager.saveAndContinue();
+            }else{
+                $("#screen").css({opacity: 0.5, height: "30px"}).html("<h3>Loading...</h3>");
+            }
+
+            return;
+        }
+
+        $("#screen").css({opacity: 1});
+
+        // Activate tooltips
+        $('a[rel=popover]').popover({
+            offset: 10,
+            trigger: 'manual',
+            html: true,
+            template: '<div class="popover" onmouseover="clearTimeout(timeoutObj);$(this).mouseleave(function() {$(this).hide();});"><div class="arrow"></div><div class="popover-inner"><h3 class="popover-title"></h3><div class="popover-content"><p></p></div></div></div>'
+        }).mouseenter(function(e) {
+            $(this).popover('show');
+        }).mouseleave(function(e) {
+            var ref = $(this);
+            timeoutObj = setTimeout(function(){
+                ref.popover('hide');
+            }, 50);
+        });
+
+        // Activate the Calendar
+        $('.datepicker-month').datepicker({viewMode:1, minViewMode:1, format: 'mm/yyyy'});
+        $('.datepicker-calendar').datepicker(new Date());
+
+
+        // Capture the Enter button and treat it as Save and continue
+        $("#screen").keypress(function(e) {
+          if(e.which == 13 && e.target.nodeName!='TEXTAREA' && typeof(disableEnterKey) == "undefined") {
+            e.preventDefault();
+            // enter pressed
+            SessionManager.saveAndContinue();_track('Enter Button + Save & Continue', 'Pressed');
+          }
+        });
+
+
+        // The progress bar doesn't update correctly unless we wait a moment before execution.
+        setTimeout(Wizard.interface.updateSectionProgressTimed, 1);
+
+        // Update save button text if on last step. Wait a moment to allow Wizard object to load.
+        setTimeout(function () {
+            if (Wizard.loader.screens.length - 1 === Wizard.onStep) {
+                $(".saveButton").text("Save & Export");
+                $(".saveButton").attr("onclick", "SessionManager.saveAndContinue();_track('Section " + Wizard.onStep + "' | 'Save And Export', 'non-disclosure-agreement | Builder');");
+            }
+        }, 1);
+    });
+</script>
+</div>
+    </div>
+    <div class="span4 document-preview-wrapper expanded">
+        <h2 class="document-preview-title static-builder">DOCUMENT PREVIEW</h2>
+        <div class="document-preview-box">
+            <iframe id="documentPreview" class="document-preview" src="./FormSwift _ Create your non-disclosure-agreement!_files/theme.html"></iframe>
+        </div>
+    </div>
+</div>
+<div id="previewPane" class="modal fade hide">
+    <div class="modal-header">
+        <div class="btn-toolbar">
+            <div class="btn-group">
+                <a href="https://formswift.com/builder.php?documentType=non-disclosure-agreement&amp;ses=cab2bc1d62aabe56306fb24995b55e3d&amp;key=34277321#" onclick="SessionManager.closePreview();_track(&quot;Preview Close&quot;, &quot;non-disclosure-agreement&quot;);" class="btn preview-close-button">Close</a>
+            </div>
+
+            <div class="btn-group">
+                <a class="btn btn-success proceed-to-export-upgrade js-reactivation-offer" href="https://formswift.com/newAccountForDoc.php?documentType=non-disclosure-agreement&amp;ses=cab2bc1d62aabe56306fb24995b55e3d&amp;key=34277321" onclick="_track(&quot;Proceed To Export Upgrade&quot;, &quot;non-disclosure-agreement&quot;);">
+                    <i class="icon-share-alt icon-white"></i>
+                    Proceed to Export
+                </a>
+                            </div>
+        </div>
+    </div>
+
+    <div class="modal-body">
+        <div id="innerPreview"><iframe id="previewCanvas" src="./FormSwift _ Create your non-disclosure-agreement!_files/saved_resource.html"></iframe></div>
+    </div>
+</div>
+
+
+<div id="instructionPane" class="modal hide">
+    <div class="modal-header"><h1>Header</h1></div>
+    <div class="modal-body"></div>
+    <div class="modal-footer">
+        <p><a class="btn btn-large btn-success" href="https://formswift.com/builder.php?documentType=non-disclosure-agreement&amp;ses=cab2bc1d62aabe56306fb24995b55e3d&amp;key=34277321#" onclick="$(&quot;#instructionPane&quot;).modal(&quot;hide&quot;);">Ready</a></p>
+    </div>
+</div>
+
+<div id="finishLaterPane" class="modal hide">
+    <div class="modal-header">
+        <h3>Finish Your <i>Non-Disclosure Agreement</i> Later?</h3>
+    </div>
+    <div class="modal-body">
+        <p>You're about to lose all of your work. If you'd like to <b>finish your Non-Disclosure Agreement later</b>, we can email you a direct link to this document. </p>
+        <p>The progress you've made will be saved, and you can complete your Non-Disclosure Agreement at any time.</p>
+
+
+        <div id="finishLater-status" class="well form-inline">
+            <label for="finishlater-email">Enter your Email:</label>
+            <input id="finishlater-email" type="text" class="input input-xlarge" placeholder="john.smith@email.com">
+            <a class="btn btn-success" href="https://formswift.com/builder.php?documentType=non-disclosure-agreement&amp;ses=cab2bc1d62aabe56306fb24995b55e3d&amp;key=34277321#" onclick="FinishLater.startProcess();">Finish Later</a>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <a class="btn pull-left" href="https://formswift.com/builder.php?documentType=non-disclosure-agreement&amp;ses=cab2bc1d62aabe56306fb24995b55e3d&amp;key=34277321#" onclick="$(&quot;#finishLaterPane&quot;).modal(&quot;hide&quot;);">Close</a>
+    </div>
+</div>
+
+
+
+<script type="text/javascript">
+    $(function() {
+        $("body").addClass("cardInterface");
+        _trackSourceData.saveToCookie();
+        SessionManager.previewBottom();
+    });
+
+</script>
+
+<!-- Don't show the preview for efile docs -->
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+                </div>
+
+            <div id="footerContent" class="builder-static-footer">
+                                    <div id="footer-content">
+    <div class="container">
+        <div class="row-fluid">
+            <ul class="press-logos horizontal-list">
+                <li><img src="./FormSwift _ Create your non-disclosure-agreement!_files/inc-logo-white.png"></li>
+                <li><img src="./FormSwift _ Create your non-disclosure-agreement!_files/forbes-logo-white.png"></li>
+                <li><img src="./FormSwift _ Create your non-disclosure-agreement!_files/fastcompany-logo-white.png"></li>
+                <li><img src="./FormSwift _ Create your non-disclosure-agreement!_files/techcrunch-logo-white.png"></li>
+                <li><img src="./FormSwift _ Create your non-disclosure-agreement!_files/huffingtonpost-logo-white.png"></li>
+            </ul>
+        </div>
+
+
+        <div class="row-fluid footer-links">
+            <div class="span3">
+                <h2>Document Categories</h2>
+                <ul>
+                    <li><a href="https://formswift.com/legal-forms">Legal Forms</a></li>
+                    <li><a href="https://formswift.com/personal">Personal</a></li>
+                    <li><a href="https://formswift.com/small-business">Business</a></li>
+                    <li><a href="https://formswift.com/tax-forms">Tax</a></li>
+                    <li><a href="https://formswift.com/real-estate">Real Estate</a></li>
+                    <li><a href="https://formswift.com/free-legal-forms">Free Legal Forms</a></li>
+                    <li><a href="https://formswift.com/multiple-licenses-organic">Formswift For Business</a></li>
+                </ul>
+            </div>
+
+            <div class="span3">
+                <h2>About FormSwift</h2>
+                <ul>
+                    <li><a href="https://formswift.com/">Home Page</a></li>
+                    <li><a href="https://formswift.com/faq.php">FAQ</a></li>
+                    <li><a href="https://formswift.com/contact.php">Contact Us</a></li>
+                    <li><a href="https://formswift.com/privacy.php">Privacy Policy</a></li>
+                    <li><a href="https://formswift.com/terms.php">Terms of Service</a></li>
+                    <li><a href="https://formswift.com/affiliates">Affiliates</a></li>
+                    <li><a href="https://formswift.com/careers">Careers</a></li>
+                </ul>
+            </div>
+
+            <div class="span3">
+                <cms:editable name="popular_documents_column_1" type="richtext">
+                    <h2>Most Popular Documents</h2>
+                    <ul>
+                        <li><a href="https://formswift.com/personal-financial-statement">Personal Financial Statement</a></li>
+                        <li><a href="https://formswift.com/invoice">Invoice</a></li>
+                        <li><a href="https://formswift.com/release-of-liability">Release of Liability</a></li>
+                        <li><a href="https://formswift.com/job-application">Job Application</a></li>
+                        <li><a href="https://formswift.com/employment-contract">Employment Contract</a></li>
+                        <li><a href="https://formswift.com/non-disclosure-agreement">Non-disclosure Agreement</a></li>
+                        <li><a href="https://formswift.com/affidavit">Affidavit</a></li>
+                    </ul>
+                </cms:editable>
+            </div>
+
+
+            <div class="span3">
+                <cms:editable name="popular_documents_column_2" type="richtext">
+                    <h2>&nbsp;</h2>
+                    <ul>
+                        <li><a href="https://formswift.com/bill-of-sale">Bill of Sale</a></li>
+                        <li><a href="https://formswift.com/employee-handbook">Employee Handbook</a></li>
+                        <li><a href="https://formswift.com/last-will-and-testament">Last Will and Testament</a></li>
+                        <li><a href="https://formswift.com/w2">W2</a></li>
+                        <li><a href="https://formswift.com/w9">W9</a></li>
+                        <li><a href="https://formswift.com/1099-misc">1099-Misc</a></li>
+                        <li><a href="https://formswift.com/lease-agreement">Lease Agreement</a></li>
+                    </ul>
+                </cms:editable>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row footer-bottom centered">
+    <p>© 2012-2017 KingStreetLabs, LLC </p>
+</div>                
+
+
+            </div>
+
+
+
+        </div>
+    </div>
+    
+
+    <div id="lightbox" style="display: none;"></div>
+
+    <script type="text/javascript" charset="utf-8">
+        
+            $(function() {
+                    Wizard.isPaidUser(1);
+                    Wizard.documentType = 'non-disclosure-agreement';
+
+                    var screenNo = 0
+                    var hash = 0;
+                    if (location.hash) {
+                        hash = location.hash.substring(1);
+                    }
+                    if (is_numeric(hash)) {
+                        screenNo = hash;
+                    }
+
+                    Wizard.interface.init(screenNo, ['effective_date','disclosing_party','recipient','project_description','recipient_role','non_disclosure_term','non_disclosure_obligations_extension','non_circumvention_clause','disclosing_party_signature','recipient_signature','governing_laws']);
+            });
+        
+                    $('a[rel=tooltip]').tooltip({ placement: 'bottom' });
+            $('em[rel=tooltip]').tooltip({ placement: 'bottom' });
+            $('a[rel=popover]').popover({ html: 'true' });
+        
+            // Track usage
+            // Allow time for links to send data to google analytics before following
+            $(function() {
+                $("a[onclick*='_track']").not( "[href='#']" ).on('click', function(e) {
+                    e.preventDefault();
+                    var href = $(this).attr('href');
+                    window.setTimeout("window.location.href='" + href + "'", 300);
+                });
+            });
+    </script>
+
+
+    
+
+
+    <script type="text/javascript">
+
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', "UA-41443183-1"]);
+      _gaq.push(['_setDomainName', 'formswift.com']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+
+    </script>
+
+    <!-- Google Tag Manager -->
+    <script>
+        (function(w, d, s, l, i) {
+            w[l] = w[l] || [];
+            w[l].push({
+                'gtm.start': new Date().getTime(),
+                event: 'gtm.js'
+            });
+            var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s),
+                dl = l != 'dataLayer' ? '&l=' + l : '';
+            j.async = true;
+            j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+            f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-W7TKWX');
+    </script>
+
+    <!-- Google Tag Manager (noscript) -->
+    <noscript>&lt;iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W7TKWX" height="0" width="0" style="display:none;visibility:hidden"&gt;&lt;/iframe&gt;</noscript>
+
+    <!-- Crazy Egg -->
+    <script type="text/javascript">
+        setTimeout(function(){var a=document.createElement("script");
+        var b=document.getElementsByTagName("script")[0];
+        a.src=document.location.protocol+"//script.crazyegg.com/pages/scripts/0056/0422.js?"+Math.floor(new Date().getTime()/3600000);
+        a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
+    </script>
+
+    <script>(function(w,d,t,r,u){var f,n,i;w[u]=w[u]||[],f=function(){var o={ti:"4073440"};o.q=w[u],w[u]=new UET(o),w[u].push("pageLoad")},n=d.createElement(t),n.src=r,n.async=1,n.onload=n.onreadystatechange=function(){var s=this.readyState;s&&s!=="loaded"&&s!=="complete"||(f(),n.onload=n.onreadystatechange=null)},i=d.getElementsByTagName(t)[0],i.parentNode.insertBefore(n,i)})(window,document,"script","//bat.bing.com/bat.js","uetq");</script><noscript>&lt;img src="//bat.bing.com/action/0?ti=4073440&amp;Ver=2" height="0" width="0" style="display:none; visibility: hidden;" /&gt;</noscript>
+
+
+
+                        <script type="text/javascript">
+            // Set to documentType or page from a landing page URL or query string
+            var documentItemID = document.location.href.split('/').pop();
+            if(documentItemID.indexOf('?') !== -1) {
+                // XXX: Pull documentType if not found in URL. We don't want
+                // this for FreeWrite documents since it'd just be a hash.
+                if(documentItemID.indexOf('documentType') !== -1 && documentItemID.indexOf('newAccountForDoc-fw') === -1) {
+                    GET.init();
+                    documentItemID = $_GET['documentType'];
+                }
+                else {
+                    documentItemID = documentItemID.split('?')[0];
+                }
+            }
+            documentItemID = documentItemID.replace(/-/g, '');
+            documentItemID = documentItemID.replace(/\.php/g, '');
+
+            // Homepage default
+            if(documentItemID == '') {
+                documentItemID = 'formswift';
+            }
+
+            /* <![CDATA[ */
+            var google_tag_params = {
+                dynx_itemid: documentItemID,
+            };
+            var google_conversion_id = 997404862;
+            var google_custom_params = window.google_tag_params;
+            var google_remarketing_only = true;
+            /* ]]> */
+            </script>
+            <script type="text/javascript" src="https://www.googleadservices.com/pagead/conversion.js">
+            </script>
+            <noscript>
+            &lt;div style="display:inline;"&gt;
+            &lt;img height="1" width="1" style="border-style:none;" alt="" src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/997404862/?value=0&amp;amp;guid=ON&amp;amp;script=0"/&gt;
+            &lt;/div&gt;
+            </noscript>
+            
+
+    <script type="text/javascript">
+        adroll_adv_id = "3CU7RRULCBFXHGNBAREW2A";
+        adroll_pix_id = "NY5EVJNP2RGCZOOJJGN32L";
+        (function () {
+        var oldonload = window.onload;
+        window.onload = function(){
+           __adroll_loaded=true;
+           var scr = document.createElement("script");
+           var host = (("https:" == document.location.protocol) ? "https://s.adroll.com" : "http://a.adroll.com");
+           scr.setAttribute('async', 'true');
+           scr.type = "text/javascript";
+           scr.src = host + "/j/roundtrip.js";
+           ((document.getElementsByTagName('head') || [null])[0] ||
+            document.getElementsByTagName('script')[0].parentNode).appendChild(scr);
+           if(oldonload){oldonload()}};
+        }());
+    </script>
+
+    <script type="text/javascript">
+      _bizo_data_partner_id = '8030';
+    </script>
+
+    <script type="text/javascript">
+        (function() {
+          var s = document.getElementsByTagName("script")[0];
+          var b = document.createElement("script");
+          b.type = "text/javascript";
+          b.async = true;
+          b.src = (window.location.protocol === "https:" ? "https://sjs" : "http://js") + ".bizographics.com/insight.min.js";
+          s.parentNode.insertBefore(b, s);
+        })();
+    </script>
+
+    <noscript>
+      &lt;img height="1" width="1" alt="" style="display:none;" src="//www.bizographics.com/collect/?pid=8030&amp;amp;fmt=gif" /&gt;
+    </noscript>
+
+
+
+
+    
+<script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"bam.nr-data.net","licenseKey":"788d9c2c7a","applicationID":"5505596","transactionName":"YgRVYEdSVhFSAkYIWFtOYkZcHGcQXBRGBEQbEV9E","queueTime":0,"applicationTime":408,"atts":"TkNWFg9IRR8=","errorBeacon":"bam.nr-data.net","agent":""}</script>
+
+<script>try{
+function lpshowmenudiv(id){ 
+  closelpmenus(id); 
+  var div = document.getElementById('lppopup'+id); 
+  var btn = document.getElementById('lp'+id); 
+  if(btn && div){ 
+    var btnstyle = window.getComputedStyle(btn, null); 
+    var divstyle = window.getComputedStyle(div, null); 
+    var posx = btn.offsetLeft; 
+    posx -= 80; 
+    var divwidth = parseInt(divstyle.getPropertyValue('width')); 
+    if(posx + divwidth > window.innerWidth - 25){ 
+      posx -= ((posx + divwidth) - window.innerWidth + 25); 
+    } 
+    div.style.left = posx + "px"; 
+    div.style.top = (btn.offsetTop + parseInt(btnstyle.getPropertyValue('height'))) + "px"; 
+    
+    if(div.style.display=='block'){div.style.display = 'none'; if(typeof(slideup)=='function'){slideup();} }
+    else div.style.display = 'block'; 
+    
+  } 
+}
+function closelpmenus(id){ 
+  if(typeof(lpgblmenus)!='undefined'){ 
+    for(var i=0; i < lpgblmenus.length; i++){ 
+      if((id==null || lpgblmenus[i]!='lppopup'+id) && document.getElementById(lpgblmenus[i])) 
+        document.getElementById(lpgblmenus[i]).style.display = 'none'; 
+    } 
+  }
+} 
+var lpcustomEvent = document.createEvent('Event'); 
+lpcustomEvent.initEvent('lpCustomEventMenu', true, true); 
+}catch(e){}</script><script>try{if(typeof(lpgblmenus)=='undefined'){ lpgblmenus = new Array(); }   lpgblmenus[lpgblmenus.length] = 'lppopupnever';   }catch(e){}</script><script>try{document.addEventListener('mouseup', function(e){ if(typeof(closelpmenus)=='function'){closelpmenus();}}, false)}catch(e){}</script><div id="lpiframeoverlay64989070" class="lpiframeoverlay" style="top: 0px; left: 0px; padding: 0px; height: 1px; width: 1600px; position: fixed; background-color: black; z-index: 1000000099; visibility: visible;"><iframe id="lpiframe64989070" src="./FormSwift _ Create your non-disclosure-agreement!_files/overlay.html" scrolling="no" style="height: 40px; width: 1600px; border: 0px;"></iframe></div><div class="datepicker dropdown-menu" style="display: none; top: 255px; left: 80px;"><div class="datepicker-days" style="display: block;"><table class=" table-condensed"><thead><tr><th class="prev">‹</th><th colspan="5" class="switch">January 2017</th><th class="next">›</th></tr><tr><th class="dow">Su</th><th class="dow">Mo</th><th class="dow">Tu</th><th class="dow">We</th><th class="dow">Th</th><th class="dow">Fr</th><th class="dow">Sa</th></tr></thead><tbody><tr><td class="day  old">25</td><td class="day  old">26</td><td class="day  old">27</td><td class="day  old">28</td><td class="day  old">29</td><td class="day  old">30</td><td class="day  old">31</td></tr><tr><td class="day ">1</td><td class="day ">2</td><td class="day ">3</td><td class="day ">4</td><td class="day ">5</td><td class="day ">6</td><td class="day ">7</td></tr><tr><td class="day ">8</td><td class="day ">9</td><td class="day ">10</td><td class="day ">11</td><td class="day ">12</td><td class="day ">13</td><td class="day ">14</td></tr><tr><td class="day ">15</td><td class="day ">16</td><td class="day ">17</td><td class="day ">18</td><td class="day ">19</td><td class="day ">20</td><td class="day ">21</td></tr><tr><td class="day ">22</td><td class="day  active">23</td><td class="day ">24</td><td class="day ">25</td><td class="day ">26</td><td class="day ">27</td><td class="day ">28</td></tr><tr><td class="day ">29</td><td class="day ">30</td><td class="day ">31</td><td class="day  new">1</td><td class="day  new">2</td><td class="day  new">3</td><td class="day  new">4</td></tr></tbody></table></div><div class="datepicker-months" style="display: none;"><table class="table-condensed"><thead><tr><th class="prev">‹</th><th colspan="5" class="switch">2017</th><th class="next">›</th></tr></thead><tbody><tr><td colspan="7"><span class="month active">Jan</span><span class="month">Feb</span><span class="month">Mar</span><span class="month">Apr</span><span class="month">May</span><span class="month">Jun</span><span class="month">Jul</span><span class="month">Aug</span><span class="month">Sep</span><span class="month">Oct</span><span class="month">Nov</span><span class="month">Dec</span></td></tr></tbody></table></div><div class="datepicker-years" style="display: none;"><table class="table-condensed"><thead><tr><th class="prev">‹</th><th colspan="5" class="switch">2010-2019</th><th class="next">›</th></tr></thead><tbody><tr><td colspan="7"><span class="year old">2009</span><span class="year">2010</span><span class="year">2011</span><span class="year">2012</span><span class="year">2013</span><span class="year">2014</span><span class="year">2015</span><span class="year">2016</span><span class="year active">2017</span><span class="year">2018</span><span class="year">2019</span><span class="year old">2020</span></td></tr></tbody></table></div></div><script aria-hidden="true" type="application/x-lastpass" id="hiddenlpsubmitdiv" style="display: none;"></script><script>try{(function() { for(var lastpass_iter=0; lastpass_iter < document.forms.length; lastpass_iter++){ var lastpass_f = document.forms[lastpass_iter]; if(typeof(lastpass_f.lpsubmitorig2)=="undefined"){ lastpass_f.lpsubmitorig2 = lastpass_f.submit; if (typeof(lastpass_f.lpsubmitorig2)=='object'){ continue;}lastpass_f.submit = function(){ var form=this; var customEvent = document.createEvent("Event"); customEvent.initEvent("lpCustomEvent", true, true); var d = document.getElementById("hiddenlpsubmitdiv"); if (d) {for(var i = 0; i < document.forms.length; i++){ if(document.forms[i]==form){ if (typeof(d.innerText) != 'undefined') { d.innerText=i.toString(); } else { d.textContent=i.toString(); } } } d.dispatchEvent(customEvent); }form.lpsubmitorig2(); } } }})()}catch(e){}</script></body><div></div></html>

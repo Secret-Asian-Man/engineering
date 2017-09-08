@@ -1,0 +1,457 @@
+var ScrollAlerter = {};
+ScrollAlerter.init = function(elid){
+  ScrollAlerter.targetScrollElement = $id(elid);
+  ScrollAlerter.displayElement = $id(elid+"Content");
+  ScrollAlerter.displayElement.style.display = "none";
+  ScrollAlerter.scrollAlertPosition = ScrollAlerter.targetScrollElement.offsetTop - 850;
+}
+
+ScrollAlerter.scrolled = function()
+{
+//  alert("scroll event detected! "+ScrollAlerter.scrollAlertPosition+" "+ScrollAlerter.getYOffset());
+if (ScrollAlerter.scrollAlertPosition) {
+
+  if (ScrollAlerter.getYOffset() >= ScrollAlerter.scrollAlertPosition && !ScrollAlerter.slidUp) {
+
+    ScrollAlerter.displayElement.style.display = 'block';
+    ScrollAlerter.animateSlideUp(ScrollAlerter.displayElement.id, -100, 0, 10);
+  };
+}else{
+  return;
+}
+}
+
+ScrollAlerter.slidUp = false;
+ScrollAlerter.animateSlideUp = function(elid, start, stop, step)
+{
+  ScrollAlerter.slidUp = true;
+  if (start >= stop) {
+    return;
+  }else{
+    element = $id(elid);
+    newPos = start + step;
+    element.style.bottom = newPos + "px";
+    setTimeout(function(){ScrollAlerter.animateSlideUp(elid, newPos, 0, step);}, 40);
+  }
+}
+
+
+
+
+ScrollAlerter.getYOffset = function() {
+  var pageY;
+  if(typeof(window.pageYOffset)=='number') {
+    pageY=window.pageYOffset;
+  }
+  else {
+    pageY=document.documentElement.scrollTop;
+  }
+
+  return pageY;
+}
+
+// WINDOW EVENT
+window.onscroll = ScrollAlerter.scrolled;
+
+function trackClickAndPreformAction(trackingName, action)
+{
+  _gaq.push(['_trackPageview', trackingName]);
+  action();
+}
+
+
+function selectionChanged(link)
+{
+  document.location = link+escape($id('fieldName').options[$id('fieldName').selectedIndex].value);
+}
+
+
+function planSelect(url){
+  $id('planSelect').setAttribute('href', url);
+}
+
+
+
+
+//
+var Widget = {};
+Widget.tempObj;
+
+
+
+
+var FormManager = {};
+
+FormManager.hideUnnecessarySubSections = function(subSectionClass)
+{
+  $("."+subSectionClass).each(function(index, value){
+    var hideThisSection = true;
+    $(this).find("input").each(function(index, value){
+      if($(this).val())
+      {
+        // If it's a radio butotn then check if it's actually checked
+        if ($(this).attr('type') == "radio")
+        {
+          if ($(this).is(':checked')) {
+            hideThisSection = false;
+          }
+        }else{
+          hideThisSection = false;
+        }
+      }
+    });
+
+    $(this).find("select").each(function(index, value){
+      // $(this).filter(':checked').val();
+      if($(this).val())
+      {
+        hideThisSection = false;
+      }
+    });
+
+
+    if (hideThisSection && index != 0) {
+      $(this).hide();
+    };
+  });
+};
+
+FormManager.setAddAnotherButton = function(section, buttonText, successBlock)
+{
+  if (!successBlock) {
+    successBlock = function(){};
+  };
+
+  // alert(successBlock);
+  if (buttonText && section) {
+    $("#addAnotherButton").attr("onclick", "FormManager.addAnotherItem(\""+section+"\", this, "+successBlock+");").html(buttonText).show();
+  }else{
+    $("#addAnotherButton").hide();
+  }
+};
+
+FormManager.addAnotherItem = function(itemClass, button, successBlock)
+{
+  var displayedAnother = false;
+
+  $('.'+itemClass).each(function(index, value) {
+
+    if ($(this).is(":hidden") && !displayedAnother) {
+      $(this).show();
+      $(this).ScrollTo();
+      displayedAnother = true;
+    }else{
+
+    }
+
+  });
+
+  if (successBlock) {
+    successBlock();
+  };
+};
+
+FormManager.bulletToAdd = "";
+
+FormManager.getArrayOfVisibleSectionsBySectionClass = function(sectionClass)
+{
+  var sectionArray = [];
+
+  if (!sectionClass) {
+    sectionClass = "organization";
+  }
+
+  $('div.'+sectionClass).filter(function() {
+    // Check if this is a visible section
+    if ($(this).css('display') != "none") {
+      sectionArray.push($(this).attr('id'));
+    }else{
+      return;
+    }
+  });
+
+  return sectionArray;
+}
+
+FormManager.createSelectElementFromSectionArray = function(sectionArray)
+{
+  var selectElement = [];
+
+  for(i=0; i<sectionArray.length; i++)
+  {
+    var organizationName = $("#"+sectionArray[i]+" h4").html();
+    // alert(organizationName+"--#"+sectionArray[i]+" h4");
+    selectElement[i] = "<option value='"+i+"'>"+organizationName+"</option>";
+  }
+
+  var allOptions = selectElement.join(" ");
+  var finalSelectEl = "<select id='organizationSelect'>"+allOptions+"</select>";
+
+  return finalSelectEl;
+}
+
+FormManager.addSelectElementForSuggestedBullets = function()
+{
+  var sectionArray = FormManager.getArrayOfVisibleSectionsBySectionClass("organization");
+  $("#sectionSelect .dynamicSelect").html(FormManager.createSelectElementFromSectionArray(sectionArray));
+}
+
+FormManager.addBulletToSelectCategory = function(textToAdd)
+{
+  $("#injectBulletText").val(textToAdd);
+  $("#sectionSelect").modal("show");
+}
+
+FormManager.addBulletFromInjectTextArea = function(){
+  var textToAdd = $("#injectBulletText").val();
+  var selectedIndex = $("#organizationSelect").val();
+
+  BulletEditor.addOne(null, "organization-bullets-"+selectedIndex, "disp_editField_"+selectedIndex, textToAdd);
+}
+
+
+FormManager.addBulletConfirmSection = function()
+{
+  FormManager.addBulletFromInjectTextArea();
+  $("#sectionSelect").modal("hide");
+}
+
+
+
+
+//
+
+var fillInMonthAndYears = function(){
+
+  var theDate=new Date()
+  var allMonths = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+  $(".months").each(function(pos, obj){
+    var htmlForMonths = "<option></option>";
+
+    for (var i=0; i < allMonths.length; i++) {
+      var selectAttr = "";
+      if(obj.getAttribute("data-selected") == allMonths[i])
+      {
+        selectAttr = "selected"
+      }
+      htmlForMonths += "<option "+selectAttr+">"+allMonths[i]+"</option>";
+    };
+
+    $(obj).html(htmlForMonths);
+  });
+
+  $(".years").each(function(pos, obj){
+    var htmlForYears = "<option></option>";
+    for (var i=0, year=theDate.getFullYear(); i < 60; i++, year--) {
+      var selectAttr = "";
+      if(obj.getAttribute("data-selected") == year)
+      {
+        selectAttr = "selected"
+      }
+
+      htmlForYears += "<option "+selectAttr+">"+year+"</option>";
+    };
+    $(obj).html(htmlForYears);
+  });
+}
+
+
+
+// addBulletFromTo(\"bullet-input-$i\", \"Description-School-$i-textarea\", \"bullet-display-$i\");
+
+
+var BulletEditor = {
+
+  addBulletPointToTextArea: function(textAreaEdit, addBullet)
+  {
+    var currentBullets = this.addBulletToCurrentBullets($("#"+textAreaEdit).val(), addBullet);
+
+    this.copyBulletsToTextArea(currentBullets, textAreaEdit);
+  },
+
+  addOne: function(inputId, textAreaEdit, textDisplay, directInjectText)
+  {
+    this.inputId = inputId;
+    this.textAreaEditId = textAreaEdit;
+    this.textDisplayId = textDisplay;
+
+
+    var newBulletValue;
+    if (directInjectText) {
+      newBulletValue = directInjectText;
+    }else{
+      newBulletValue = $("#"+this.inputId).val();
+    }
+
+
+    if (!newBulletValue) {
+      return;
+    };
+
+    var currentBullets = this.addBulletToCurrentBullets($("#"+this.textAreaEditId).val(), newBulletValue);
+
+    this.copyBulletsToTextArea(currentBullets);
+    this.copyHtmlBulletsForDisplay(currentBullets);
+
+    if (!directInjectText) {
+      $("#"+this.inputId).val("");
+    };
+
+  },
+
+  addBulletToCurrentBullets: function(myBullets, addNewBullet)
+  {
+    var currentBullets = myBullets;
+
+    if (currentBullets) {
+      currentBullets += "\n";
+    };
+
+    currentBullets += addNewBullet;
+
+    return currentBullets;
+  },
+
+  editWithAutoBullets: function(textAreaEdit, textDisplay)
+  {
+    $(".autoPopulate").show();
+    this.edit(textAreaEdit, textDisplay, true);
+  },
+
+  edit: function(textAreaEdit, textDisplay, autoBullets)
+  {
+    if (!autoBullets) {
+      $(".autoPopulate").hide();
+    };
+
+    this.textAreaEditId = textAreaEdit;
+    this.textDisplayId = textDisplay;
+
+    // Copy the bullets to the new text area
+    safeBulletText = $('<div/>').text($("#"+textAreaEdit).val()).html();
+    $("#bulletText").html(safeBulletText);
+
+    // Show the modal view
+    $("#bulletEditor").modal("show");
+
+  },
+
+  save: function()
+  {
+    // Copy the updated bullets to the old text area
+    var bulletsToCopy = $("#bulletText").val();
+
+    // Remove trailing new lines
+    bulletsToCopy = bulletsToCopy.trim();
+
+    this.copyBulletsToTextArea(bulletsToCopy);
+    this.copyHtmlBulletsForDisplay(bulletsToCopy);
+
+    $("#bulletEditor").modal("hide");
+  },
+
+  copyBulletsToTextArea: function(bulletsToCopy, tmpTextAreaId)
+  {
+    if (!tmpTextAreaId) {
+      tmpTextAreaId = this.textAreaEditId;
+    };
+    $("#"+tmpTextAreaId).val(bulletsToCopy);
+  },
+
+  copyHtmlBulletsForDisplay: function(bulletsToCopy)
+  {
+    var htmlBullets = this.getHtmlBullets(bulletsToCopy);
+    $("#"+this.textDisplayId).html(htmlBullets);
+  },
+
+  getHtmlBullets: function(newBulletText)
+  {
+    if (!newBulletText) {
+      return
+    };
+
+    var bulletArray = [];
+    bulletArray = newBulletText.split("\n");
+
+    for (var i=0; i < bulletArray.length; i++) {
+      var safeBulletText = $('<div/>').text(bulletArray[i]).html();
+
+      bulletArray[i] = "<li>" + safeBulletText + "</li>";
+    };
+
+    var htmlBulletPoints  = "<ul>" + bulletArray.join(" ") + "</ul>";
+
+    return htmlBulletPoints;
+  },
+
+  cancel: function(){
+    $("#bulletEditor").modal("hide");
+  }
+
+};
+
+
+ExampleContent = {};
+ExampleContent.nav = {
+  showItemOfClassAtIndex: function(classN, ind)
+  {
+    $("."+classN).each(function(objInd, obj){
+        if (objInd == ind) {
+        $(obj).show();
+      }else{
+        $(obj).hide();
+      }
+    });
+  },
+
+  addTextToInput: function(txtC, inputId){
+    $("#"+inputId).val($("#"+inputId).val() + urldecode(txtC));
+  }
+}
+
+
+FreeDocument = {};
+FreeDocument.type = 'affidavit';
+
+FreeDocument.downloadConfirm = function(document, ext)
+{
+  var docLabel = document.split("-").join(" ");
+
+  $('#downloadConfirmPane').modal("show");
+
+  // Show the agreement and hide the thanks (incase it was showing)
+  $('#downloadConfirmPane .agreement').show();
+  $('#downloadConfirmPane .thanks').hide();
+
+  $('#downloadConfirmPane .documentType').html(docLabel);
+  FreeDocument.type = document;
+  ext ? FreeDocument.ext = ext : '';
+  $('#downloadConfirmPane .documentExt').html( (ext && ext == 'pdf') ? 'PDF File' : 'Word Document' );
+}
+
+FreeDocument.jumpToHash = function(hash)
+{
+  window.location.hash = hash;
+}
+
+FreeDocument.download = function(docType)
+{
+  if (!docType && FreeDocument.type) {
+    docType = FreeDocument.type;
+  }else{
+    alert("Document not found");
+    return;
+  }
+
+  var url='/_api/downloadFreeDoc.php?docType='+docType+ (FreeDocument.ext ? '&docExt='+FreeDocument.ext : '');
+  window.open(url,'Download');
+
+  setTimeout(function(){FreeDocument.downloadDone();}, 300);
+}
+
+FreeDocument.downloadDone = function()
+{
+  $('#downloadConfirmPane .agreement').hide();
+  $('#downloadConfirmPane .thanks').show();
+}

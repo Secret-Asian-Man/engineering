@@ -1,0 +1,79 @@
+var BuilderNav = {};
+
+BuilderNav.init = function () {
+  // Builder content is injected into container wrapper. Remove this for full width.
+  $('.container').eq(1).removeClass('container');
+  $('.container').eq(0).switchClass('container', 'container-fluid').addClass('static-builder-header');
+  $('#footerContent').addClass('builder-static-footer');
+
+  // Arrow icon color change on hover
+  $('.builder-toolbar-arrow-img').hover(function () {
+    if (!$(this).parent().hasClass('active-arrow')) {
+      $(this).attr('src', '/images/builder-static/blue-left-toolbar-arrow.png');
+    } else {
+      $(this).attr('src', '/images/builder-static/blue-right-toolbar-arrow.png');
+    }
+
+  });
+  $('.builder-toolbar-arrow-img').mouseout(function () {
+    if (!$(this).parent().hasClass('active-arrow')) {
+      $(this).attr('src', '/images/builder-static/gray-left-toolbar-arrow.png');
+    } else {
+      $(this).attr('src', '/images/builder-static/gray-right-toolbar-arrow.png');
+    }
+  });
+
+  // Builder Nav show and hide
+  $('.builder-toolbar-arrow-wrapper').click(function () {
+    if ($(this).hasClass('active-arrow')) {
+      $(this).removeClass('active-arrow');
+      $('.builder-nav').show().animate({ 'right' : '0' }, 1000).removeClass('collapsed');
+      $(this).attr('src', '/images/builder-static/gray-right-toolbar-arrow.png');
+
+      $('.static-builder-content').removeClass('expanded');
+      $('.document-preview-wrapper').removeClass('expanded');
+    } else {
+      $(this).addClass('active-arrow');
+      $('.builder-nav').animate({ 'right' : '313px' }, 1000).addClass('collapsed').hide();
+      $(this).attr('src', '/images/builder-static/gray-left-toolbar-arrow.png');
+
+      $('.static-builder-content').addClass('expanded');
+      $('.document-preview-wrapper').addClass('expanded');
+    }
+  });
+
+  // Load mobile styles
+  BuilderNav.adjustForMobile();
+  $(window).resize(function () {
+    BuilderNav.adjustForMobile();
+  });
+
+  // Ensure the current step is visible in the document nav
+  Wizard.newSectionActions.push(BuilderNav.scrollToCurrentStep);
+};
+
+BuilderNav.adjustForMobile = function () {
+  if ($(window).width() <= 767) {
+    $('.static-builder-content').removeClass('expanded');
+    $('.document-preview-wrapper').removeClass('expanded');
+    $('.builder-nav').show().removeClass('collapsed').css('right', '0').appendTo('.builder');
+    $('.builder-toolbar-arrow-wrapper').hide();
+  } else {
+    $('.builder-nav').prependTo('.builder');
+    $('.builder-toolbar-arrow-wrapper').show();
+    if ($('.builder-toolbar-arrow-wrapper').hasClass('active-arrow')) {
+      $('.builder-nav').hide();
+      $('.static-builder-content').addClass('expanded');
+      $('.document-preview-wrapper').addClass('expanded');
+    }
+  }
+};
+
+BuilderNav.scrollToCurrentStep = function () {
+  var maxOffsetTop = 725,
+      offsetTopAdjustment = 150;
+
+  if ($('.builder-nav li.active').offset().top > maxOffsetTop) {
+    $('.builder-nav').scrollTop($('.builder-nav').scrollTop() + ($('.builder-nav li.active').offset().top - offsetTopAdjustment));
+  }
+};

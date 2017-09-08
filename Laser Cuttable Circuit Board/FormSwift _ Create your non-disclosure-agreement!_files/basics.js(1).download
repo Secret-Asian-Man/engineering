@@ -1,0 +1,175 @@
+// return element
+function $id(elid)
+{
+	return document.getElementById(elid);
+}
+
+
+// Toggle display state
+function toggle(id)
+{
+	var el = $id(id);
+	setDisplay("lightbox", "none");
+	if (el.style.display == "none") {
+		if (el.className == "popover") {
+			setDisplay("lightbox", "block");
+		}
+		setDisplay(id, "block");
+	}else{
+		setDisplay(id, "none");
+	}
+}
+
+// Pass it an id and what you want the display of that Id to be set to.
+function setDisplay(id, param, object)
+{
+	if(object)
+	{
+		// Send in actual item rather than the id for the item
+		object.style.display = param;
+	}else{
+		if(typeof id == "object")
+		{
+			// Set a batch of items 
+			setDisplayAdv(id);
+		}else{
+			// alert(id)
+			// Just set one item
+			try{
+				document.getElementById(id).style.display = param;											
+			}catch(e)
+			{
+//				alert("Error:"+id);
+			}
+
+		}
+	}
+
+	return;
+}
+
+
+function setDisplayAdv(object)
+{
+	// Pass in an object formatted like this: [["id", "property":], ["id", "property":], ["id", "property":]];
+	for(i=0; i < object.length; i++)
+	{
+		document.getElementById(object[i][0]).style.display = object[i][1];
+	}
+	
+	return true;
+}
+
+$.fn.serializeObject = function()
+{
+    var o = {};
+    var a = this.serializeArray();
+    $.each(a, function() {
+        if (o[this.name] !== undefined) {
+            if (!o[this.name].push) {
+                o[this.name] = [o[this.name]];
+            }
+            o[this.name].push(this.value || '');
+        } else {
+            o[this.name] = this.value || '';
+        }
+    });
+
+    return o;
+};
+
+$.extend({
+    stringify  : function stringify(obj) {
+
+        if ("JSON" in window) {
+            return JSON.stringify(obj);
+        }
+
+        var t = typeof (obj);
+        if (t != "object" || obj === null) {
+            // simple data type
+            if (t == "string") obj = '"' + obj + '"';
+
+            return String(obj);
+        } else {
+            // recurse array or object
+            var n, v, json = [], arr = (obj && obj.constructor == Array);
+
+            for (n in obj) {
+                v = obj[n];
+                t = typeof(v);
+                if (obj.hasOwnProperty(n)) {
+                    if (t == "string") {
+                        v = '"' + v + '"';
+                    } else if (t == "object" && v !== null){
+                        v = jQuery.stringify(v);
+                    }
+
+                    json.push((arr ? "" : '"' + n + '":') + String(v));
+                }
+            }
+
+            return (arr ? "[" : "{") + String(json) + (arr ? "]" : "}");
+        }
+    }
+});
+
+function nl2br (str, is_xhtml) {
+    var breakTag = (is_xhtml || typeof is_xhtml === 'undefined') ? '' : '<br>';
+    return (str + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + breakTag + '$2');
+}
+
+String.prototype.trim = function() {
+  return this.replace(/^\s+|\s+$/g, "");
+};
+
+$.fn.disableSelection = function() {
+    return this
+             .attr('unselectable', 'on')
+             .css('user-select', 'none')
+             .on('selectstart', false);
+};
+
+
+
+function checkboxUpdate(chk, hiddenFieldId)
+{
+	var hidField = $id(hiddenFieldId);
+	
+	if(chk.checked)
+	{
+		hidField.value='checked';
+	}else{
+		hidField.value='unchecked';
+	}
+}
+
+
+function is_numeric(input)
+{
+    return (input - 0) == input && input.length > 0;
+}
+
+
+function disableRightClick()
+{
+	$('body').attr('oncontextmenu', 'return false;');
+}
+
+
+function disableSelection()
+{
+	$('body').disableSelection();
+	
+	// Cross browser
+	target = document.body;
+	if (typeof target.onselectstart!="undefined"){ //For IE
+	   target.onselectstart=function(){return false}	
+	}else if (typeof target.style.MozUserSelect!="undefined"){ //For Firefox
+		target.style.MozUserSelect="none"
+	} 
+	 else{ //All other route (For Opera)
+	    target.onmousedown=function(){return false}
+		target.style.cursor = "default"
+	}
+}

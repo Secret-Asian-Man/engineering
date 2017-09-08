@@ -1,0 +1,265 @@
+// Usage Tracking with Google analytics
+var _track = function(category, action, options, completeBlock){
+	if (!category || !action) {
+		// alert("Nothing to track!");
+		return;
+	}
+
+	// Make sure Google analytics is up and running
+	if (typeof(_gaq) != "undefined") {
+		// The fourth (empty string) paramter is "label", we are not currently using it in google analytics
+		_gaq.push(['_trackEvent', category, action, '']);
+	}
+
+	// If Segment exists track the events
+	if (typeof(analytics) != "undefined")
+	{
+		// Make sure all our tracking methods exist
+		if (typeof(analytics.identify) == "function" && typeof(analytics.track) == "function")
+		{
+			var analyticsOptions = {};
+			if (typeof(options) == "object" && options.integrations) {
+				analyticsOptions["integrations"] = options.integrations;
+			}
+
+
+			if (COOKIE.get("userid") || COOKIE.get("accountemail"))
+			{
+				var identityTraits = {};
+				identityTraits["email"] = decodeURIComponent(decodeURIComponent(COOKIE.get('accountemail')));
+				identityTraits[category] = action;
+
+				analytics.identify(COOKIE.get('userid'), identityTraits, analyticsOptions);
+			}
+
+			analytics.track(category, {category: category, action: action}, analyticsOptions);
+
+			// Don't pass in numeric values as event names.  We're going to convert the action to a number to test.
+			// If it's a string (isNaN == true), then send the event. If it's a number (isNaN == false) don't send it
+			if (isNaN(Number(action))) {
+				analytics.track(action, {category: category, action: action}, analyticsOptions);
+			}
+
+			// Increment the events in mixpanel.  This is included by default with Segment analytics library
+			if (typeof(mixpanel) == "object" && typeof(mixpanel.people) == "object") {
+				mixpanel.people.increment(category+"::num");
+			}
+
+
+		};
+
+	};
+
+	if (completeBlock) {
+		completeBlock();
+	}
+};
+
+
+var _trackSplitTestData = {
+	// Gives us All of the split tests & variations that the customer has seen to this point.
+	getExperIdAndVarNames: function(){
+		if (typeof(window['optimizely']) != "undefined") {
+			return window['optimizely'].data.state.variationNamesMap;
+		}
+
+		return null;
+	},
+
+	// Experiment ID, Variation name
+	// Object {2193890444: "Variation #1", 2231611779: "Variation #1"}
+
+	getDiffLastUploadToCurrData: function(){
+		var currData = this.getExperIdAndVarNames();
+		if (!currData) { return null; };
+		var lastUploadedData = JSON.parse(COOKIE.get("exp"));
+		if (!lastUploadedData) {
+			lastUploadedData = {};
+		};
+
+		// Get just the experiment Ids (which are the keys of that array)
+		var currExperimentIds = Object.keys(currData);
+		var lastExperimentIds = Object.keys(lastUploadedData);
+
+		// Go through each of the current experiment.
+		var experimentDiff = {};
+		for (var i = 0; i < currExperimentIds.length; i++)
+		{
+			// Check if our current experiment id has been passed in already
+			// If it has not, then save it to our diff array
+			if (lastExperimentIds.indexOf(currExperimentIds[i]) < 0) {
+				// The experiment Id was not passed in, so we save it into a diff.
+				experimentDiff["exp_"+currExperimentIds[i]] = currData[currExperimentIds[i]];
+			}
+		};
+
+		return experimentDiff;
+	},
+
+
+	saveToDB: function(userId)
+	{
+		var dataToSend = this.getDiffLastUploadToCurrData();
+
+		if (!dataToSend || !userId || !Object.keys(dataToSend).length)
+		{
+			return false;
+		};
+
+		var sendData = {"userId":userId, "data":dataToSend, "fromPage": "optimizely-experiment"};
+
+		// Post the data to server
+		$.ajax({
+		    url: '_api/saveAdditionalUserData.php',
+		    type: 'POST',
+		    data: JSON.stringify(sendData),
+		    dataType: 'json',
+		    async: true,
+		    success: function(msg) {
+		        COOKIE.set("exp", JSON.stringify(_trackSplitTestData.getExperIdAndVarNames()), 120);
+		    }
+		});
+	}
+}
+
+// Source and Split test data
+var _trackSourceData = {
+	keysToTrack: ["utm_source","utm_medium","utm_term","utm_content","utm_campaign","u_adgroup","u_network","u_device","u_placement","u_country","u_producttype","u_product","u_matchtype","u_landingpage","u_aceid","u_adposition"],
+
+	saveToCookie: function()
+	{
+		if (COOKIE.get("source")) {
+			// alert("Source data already stored");
+			return;
+		};
+		// Fetch all GET data
+		GET.init();
+
+		// If we have a utm source, save all relevant data into a JSON cookie
+		// &utm_source=exitpop&utm_medium=email&utm_campaign=exitpop
+		if($_GET['utm_source'])
+		{
+			var dataToTrack = {};
+
+			for (var i = 0; i < this.keysToTrack.length; i++) {
+				dataToTrack[this.keysToTrack[i]] = $_GET[this.keysToTrack[i]];
+			};
+
+			var jsonString = JSON.stringify(dataToTrack);
+			// alert(jsonString);
+			COOKIE.set("source", jsonString, 5);
+		}
+	},
+
+	saveCookieToDB: function(page, userId)
+	{
+		var jsonString = COOKIE.get("source");
+		var dataToTrack = JSON.parse(jsonString);
+
+		if (!COOKIE.get("source")) {
+			return false;
+		};
+
+		if (!dataToTrack["utm_source"] || !page || !userId)
+		{
+			return false;
+		};
+
+		var sendData = {"fromPage": page, "userId":userId, "data":dataToTrack};
+
+		// Post the data to server
+		$.ajax({
+		    url: '_api/saveAdditionalUserData.php',
+		    type: 'POST',
+		    data: JSON.stringify(sendData),
+		    dataType: 'json',
+		    async: true,
+		    success: function(msg) {
+		        // alert(msg);
+		    }
+		});
+	}
+};
+
+_trackAdditionalData = {
+	save: function(fromPage, data, onSuccessCallback){
+		// Set our userid
+		var userId = COOKIE.get("userid");
+
+		// Make sure we have data to save, and a page where the data is sent from
+		// Also we have an active user.
+		if (!data || typeof(data) != "object" || !fromPage || !userId) {
+			return;
+		};
+
+		// Prep the data to be sent
+		var sendData = {"fromPage": fromPage, "userId":userId, "data":data};
+
+		// Post the data to server
+		$.ajax({
+		    url: '/_api/saveAdditionalUserData.php',
+		    type: 'POST',
+		    data: JSON.stringify(sendData),
+		    dataType: 'json',
+		    async: true,
+		    success: function(){
+		    	// Make a call to our success callback
+		    	if (onSuccessCallback) {onSuccessCallback();}
+		    }
+		});
+	}
+};
+
+
+
+// Store cookies
+var COOKIE = {
+
+	set: function (name,value,days)
+	{
+		if (days) {
+			var date = new Date();
+			date.setTime(date.getTime()+(days*24*60*60*1000));
+			var expires = "; expires="+date.toGMTString();
+		}
+		else var expires = "";
+		document.cookie = name+"="+value+expires+"; path=/";
+	},
+
+	get: function(name)
+	{
+		var nameEQ = name + "=";
+		var ca = document.cookie.split(';');
+		for(var i=0;i < ca.length;i++) {
+			var c = ca[i];
+			while (c.charAt(0)==' ') c = c.substring(1,c.length);
+			if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+		}
+		return null;
+	},
+
+	unset: function (name) {
+		this.set(name,"",-1);
+	}
+};
+
+// Fetch all GET data from our URL
+var $_GET = {}
+var GET = {
+	init: function()
+	{
+		document.location.search.replace(/\??(?:([^=]+)=([^&]*)&?)/g, function ()
+		{
+	    	function decode(s) {
+	        	return decodeURIComponent(s.split("+").join(" "));
+	    	}
+
+	    	var key = decode(arguments[1]);
+	    	var val = decode(arguments[2]);
+
+	    	if (key && val) {
+	    		$_GET[key] = val;
+	    	};
+		});
+	}
+};
